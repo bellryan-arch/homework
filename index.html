@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Math Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Decorative background shapes -->
+  <div class="bg-deco" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="dots-grid"></div>
+  </div>
+
+  <div class="wrap">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <span class="logo-icon">✦</span>
+          <div>
+            <h1>Math Practice</h1>
+            <p class="sub">Practice daily · Fix mistakes · Level up</p>
+          </div>
+        </div>
+      </div>
+      <div class="topRight">
+        <button id="printBtn" class="btn-ghost">🖨 Print</button>
+        <button id="dashboardBtn" class="btn-ghost">👩‍👧 Parent</button>
+      </div>
+    </header>
+
+    <!-- Controls card -->
+    <section class="card controls-card">
+      <div class="card-inner">
+
+        <div class="row settings-row" id="settingsRow">
+          <label class="field-label">
+            <span class="label-text">Mode</span>
+            <select id="modeSelect">
+              <option value="practice">Practice</option>
+              <option value="test">Test</option>
+            </select>
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Starting level</span>
+            <select id="gradeSelect">
+              <option value="1">Grade 1 (start)</option>
+              <option value="2">Grade 2</option>
+              <option value="3">Grade 3</option>
+              <option value="4">Grade 4</option>
+              <option value="5">Grade 5</option>
+              <option value="6">Grade 6</option>
+              <option value="7">Grade 7</option>
+              <option value="8">Grade 8</option>
+              <option value="current">Current level</option>
+            </select>
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Questions per page</span>
+            <select id="countSelect">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="40">40</option>
+              <option value="60">60</option>
+              <option value="80">80</option>
+            </select>
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Focus</span>
+            <select id="focusSelect">
+              <option value="adaptive">Adaptive</option>
+              <option value="mixed">Mixed</option>
+              <option value="word">Word Problems</option>
+              <option value="addsub">Add/Subtract</option>
+              <option value="muldiv">Multiply/Divide</option>
+              <option value="decimals">Decimals</option>
+              <option value="fractions">Fractions</option>
+              <option value="percents">Percents</option>
+              <option value="orderops">Order of Operations</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="row action-row">
+          <button id="newBtn" class="btn-primary">▶ Start Page</button>
+          <div class="btn-group-secondary">
+            <button id="showSettingsBtn" class="btn-outline">Settings</button>
+            <button id="resetBtn" class="btn-outline">Reset</button>
+            <button id="pauseBtn" class="btn-outline">⏸ Pause</button>
+            <button id="showSolutionsBtn" class="btn-outline">Show Solutions</button>
+            <button id="checkBtn" class="btn-check">✓ Check Answers</button>
+          </div>
+        </div>
+
+        <!-- Status pills -->
+        <div class="status-bar">
+          <div class="stat-chip">
+            <span class="chip-icon">⏱</span>
+            <span class="chip-label">Time</span>
+            <span class="chip-val" id="timer">00:00</span>
+          </div>
+          <div class="stat-chip">
+            <span class="chip-icon">🎯</span>
+            <span class="chip-label">Score</span>
+            <span class="chip-val" id="score">—</span>
+          </div>
+          <div class="stat-chip">
+            <span class="chip-icon">🔥</span>
+            <span class="chip-label">Streak</span>
+            <span class="chip-val" id="streak">0</span>
+          </div>
+          <div class="stat-chip">
+            <span class="chip-icon">⏳</span>
+            <span class="chip-label">Session</span>
+            <span class="chip-val" id="sessionLeft">30:00</span>
+          </div>
+          <div class="stat-chip">
+            <span class="chip-icon">⏸</span>
+            <span class="chip-label">Pauses</span>
+            <span class="chip-val" id="pausesLeft">2</span>
+          </div>
+        </div>
+
+        <!-- Parent settings (collapsible) -->
+        <details class="tips parent-settings">
+          <summary>
+            <span>⚙️ Parent Settings</span>
+            <span class="caret">▾</span>
+          </summary>
+          <div class="settingsGrid">
+            <label class="toggle-label"><input type="checkbox" id="allowSolutions" checked /> <span>Allow "Show Solutions" (practice only)</span></label>
+            <label class="toggle-label"><input type="checkbox" id="requireAllAnswered" /> <span>Require all answered before checking</span></label>
+
+            <label class="field-label small-field">
+              <span class="label-text">Mastery threshold (%)</span>
+              <input type="number" id="masteryThreshold" min="50" max="100" value="90" />
+            </label>
+            <label class="field-label small-field">
+              <span class="label-text">"Completed" threshold (%)</span>
+              <input type="number" id="completionThreshold" min="50" max="100" value="90" />
+            </label>
+
+            <label class="field-label small-field">
+              <span class="label-text">Min pages per level</span>
+              <input type="number" id="minPagesPerLevel" min="1" max="200" value="20" />
+            </label>
+
+            <label class="field-label small-field">
+              <span class="label-text">Current level (parent)</span>
+              <select id="currentLevelSelect">
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5">Grade 5</option>
+                <option value="6">Grade 6</option>
+                <option value="7">Grade 7</option>
+                <option value="8">Grade 8</option>
+              </select>
+            </label>
+
+            <label class="toggle-label"><input type="checkbox" id="autoAdvance" checked /> <span>Auto-advance when mastered</span></label>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- Worksheet section -->
+    <section class="card worksheet-card">
+      <div class="card-inner">
+        <div class="sheetHeader">
+          <h2 id="sheetTitle" class="sheet-title">Worksheet</h2>
+          <div class="meta badge-meta" id="sheetMeta"></div>
+        </div>
+
+        <!-- Calendar -->
+        <div id="calendar" class="calendar"></div>
+
+        <!-- Questions grid -->
+        <div id="questions" class="questions"></div>
+
+        <!-- Legend -->
+        <div class="legend">
+          <span class="legendItem ok">✓ Correct</span>
+          <span class="legendItem bad">✗ Needs Fixing</span>
+        </div>
+
+        <!-- Feedback banner -->
+        <div id="feedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <!-- Parent Dashboard Modal -->
+    <div id="modalBackdrop" class="modalBackdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal card">
+        <div class="modalHeader">
+          <div class="modal-title-group">
+            <span class="modal-icon">👩‍👧</span>
+            <h2>Parent Dashboard</h2>
+          </div>
+          <button id="closeDashboardBtn" class="btn-ghost">✕ Close</button>
+        </div>
+
+        <div class="dashGrid">
+          <div class="dashCard">
+            <h3 class="dash-section-title">📊 Summary</h3>
+            <div id="dashSummary" class="dashBody"></div>
+          </div>
+          <div class="dashCard">
+            <h3 class="dash-section-title">🧠 Skill Mastery</h3>
+            <div id="dashSkills" class="dashBody"></div>
+          </div>
+          <div class="dashCard">
+            <h3 class="dash-section-title">📋 Recent Pages</h3>
+            <div id="dashRecent" class="dashBody"></div>
+          </div>
+          <div class="dashCard">
+            <h3 class="dash-section-title">💾 Backup & Reset</h3>
+            <div class="dashBody">
+              <div class="backup-buttons">
+                <button id="exportBtn" class="btn-outline">Export JSON</button>
+                <button id="downloadBackupBtn" class="btn-outline">⬇ Download</button>
+                <button id="resetDataBtn" class="btn-danger">⚠ Reset All</button>
+              </div>
+              <textarea id="exportOut" class="exportOut" readonly placeholder="Exported data will appear here…"></textarea>
+
+              <div class="importBlock">
+                <p class="label-text small-label">Import backup (paste JSON or choose file)</p>
+                <textarea id="importIn" class="exportOut" placeholder="Paste backup JSON here…"></textarea>
+                <div class="import-actions">
+                  <button id="importBackupBtn" class="btn-primary small-btn">Import</button>
+                  <label class="btn-outline file-label">
+                    <input id="importFile" type="file" accept="application/json" />
+                    📂 Choose File
+                  </label>
+                </div>
+                <div id="importStatus" class="import-status"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="modalBackdrop hidden">
+      <div class="modal card password-modal">
+        <div class="pw-icon">🔐</div>
+        <h2>Parent Access</h2>
+        <p class="pw-sub">Enter the parent password to continue</p>
+        <input id="passwordInput" type="password" placeholder="Password" class="pw-input" />
+        <div class="pw-actions">
+          <button id="passwordSubmitBtn" class="btn-primary">Enter</button>
+          <button id="passwordCancelBtn" class="btn-outline">Cancel</button>
+        </div>
+        <div id="passwordError" class="pw-error"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-dot">●</span>
+      Offline single-child version · Progress saves in this browser only
+      <span class="footer-dot">●</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
