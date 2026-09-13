@@ -1,281 +1,355 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Math Practice</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Free Daily Math Practice for Kids | Bell's</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;family=Baloo+2:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<meta content="Free browser-based math practice with timed sessions, printable worksheets, mistake correction, mastery tracking and a parent dashboard. Progress saves in this browser." name="description"/><meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/><meta content="website" property="og:type"/><meta content="Bell's" property="og:site_name"/><meta content="Free Daily Math Practice for Kids | Bell's" property="og:title"/><meta content="Short, focused math practice for kids with timed sessions, printable pages, mistake correction, mastery tracking and a parent dashboard." property="og:description"/><meta content="https://homework.bellstuff.net/" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Free Daily Math Practice for Kids | Bell's" name="twitter:title"/><meta content="Free browser math practice with mistake correction, printing, mastery tracking and parent controls." name="twitter:description"/><meta content="#6c63ff" name="theme-color"/><link href="https://homework.bellstuff.net/" rel="canonical"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Bell's Math Practice",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "url": "https://homework.bellstuff.net/",
+  "description": "Free browser-based math practice for kids with timed sessions, printable worksheets, mistake correction, mastery tracking and a parent dashboard.",
+  "isAccessibleForFree": true,
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "audience": {"@type":"EducationalAudience","educationalRole":"student"},
+  "featureList": ["Timed math practice","Printable practice pages","Mistake correction workflow","Mastery tracking","Parent dashboard","Browser-local progress storage"],
+  "publisher": {"@type":"Organization","name":"Bell's","url":"https://bellstuff.net/"}
+}</script><style>
+:root{
+  --ink:#17213f;--muted:#66708b;--bg:#f5f7ff;--surface:#ffffff;--line:#e5e9f5;
+  --purple:#6657f5;--purple-dark:#4e3de0;--blue:#2f7cf6;--mint:#28c9a2;--yellow:#ffcc57;
+  --danger:#ef5d72;--shadow:0 18px 50px rgba(37,45,89,.10);--shadow-soft:0 8px 24px rgba(37,45,89,.08);
+  --radius:24px;--radius-sm:15px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Nunito,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:
+radial-gradient(circle at 10% 0%,rgba(102,87,245,.13),transparent 31rem),
+radial-gradient(circle at 96% 11%,rgba(47,124,246,.11),transparent 29rem),
+linear-gradient(180deg,#fbfcff 0%,#f4f7ff 56%,#f7f9fd 100%);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button,a{transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(47,124,246,.25);outline-offset:2px}
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}.blob{position:absolute;border-radius:999px;filter:blur(3px);opacity:.35}.blob-1{width:240px;height:240px;background:#dcd6ff;top:-80px;left:-90px}.blob-2{width:190px;height:190px;background:#cfe8ff;top:28%;right:-80px}.blob-3{width:150px;height:150px;background:#d6fff0;bottom:6%;left:-60px}.dots-grid{display:none}
+.wrap{width:min(1160px,calc(100% - 32px));margin:0 auto;padding:20px 0 52px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 2px 18px}.header-brand{display:flex;align-items:center;gap:12px}.brand-logo{display:flex;align-items:center;gap:11px}.logo-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:20px;box-shadow:0 8px 20px rgba(102,87,245,.28)}.brand-title{font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:1.24rem;line-height:1.1}.sub{margin:2px 0 0;color:var(--muted);font-size:.86rem;font-weight:700}.topRight{display:flex;align-items:center;gap:9px}.header-brand>.btn-ghost{font-size:.88rem}
+.btn-ghost,.btn-outline,.btn-primary,.btn-check,.btn-danger{border:0;cursor:pointer;font-weight:800;border-radius:13px;padding:11px 15px}.btn-ghost,.btn-outline{background:#fff;color:#3f4869;border:1px solid var(--line);box-shadow:0 4px 13px rgba(38,47,91,.04)}.btn-ghost:hover,.btn-outline:hover{border-color:#cfd5e8;background:#fafbff;transform:translateY(-1px)}.btn-primary{color:#fff;background:linear-gradient(135deg,var(--purple),var(--blue));box-shadow:0 10px 22px rgba(93,76,230,.24)}.btn-primary:hover,.btn-check:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(93,76,230,.28)}.btn-check{color:#fff;background:linear-gradient(135deg,#16b892,var(--mint));box-shadow:0 10px 22px rgba(40,201,162,.2)}.btn-danger{background:#fff0f3;color:#bc3550;border:1px solid #ffd1da}
+.math-hero{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr);gap:30px;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff 0%,#f8f7ff 56%,#f2f8ff 100%);border:1px solid rgba(220,224,241,.9);border-radius:30px;padding:clamp(26px,5vw,52px);box-shadow:var(--shadow);margin:3px 0 22px}.math-hero:after{content:"";position:absolute;width:270px;height:270px;border-radius:50%;background:radial-gradient(circle,rgba(102,87,245,.14),rgba(102,87,245,0) 68%);right:-90px;top:-105px}.hero-copy,.hero-visual{position:relative;z-index:1}.hero-kicker,.section-kicker{display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;letter-spacing:.095em;font-size:.75rem;font-weight:900;color:var(--purple-dark)}.spark{color:var(--purple)}.math-hero h1{font-family:"Baloo 2",Nunito,sans-serif;font-size:clamp(2.25rem,5vw,4.2rem);line-height:.99;letter-spacing:-.035em;margin:12px 0 15px;max-width:780px}.accent-word{background:linear-gradient(90deg,var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}.hero-lede{max-width:730px;color:#56617d;font-size:clamp(1rem,1.6vw,1.16rem);line-height:1.67;margin:0}.hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin:24px 0 16px}.hero-primary,.hero-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 18px;font-weight:900;text-decoration:none}.hero-primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;box-shadow:0 12px 26px rgba(84,70,220,.25)}.hero-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(84,70,220,.31)}.hero-secondary{background:#fff;color:#384260;border:1px solid #dfe3f0;cursor:pointer}.hero-secondary:hover{transform:translateY(-1px);border-color:#cdd3e7}.hero-trust{display:flex;flex-wrap:wrap;gap:9px 16px;color:#66708b;font-size:.86rem;font-weight:800}.hero-trust span{white-space:nowrap}.hero-visual{background:rgba(255,255,255,.86);border:1px solid #e6e8f4;border-radius:22px;padding:20px;box-shadow:0 18px 40px rgba(48,56,102,.12);backdrop-filter:blur(10px);transform:rotate(1.1deg)}.hero-visual-top,.mock-progress-label{display:flex;justify-content:space-between;align-items:center;gap:12px}.mini-label{font-size:.72rem;font-weight:900;letter-spacing:.1em;color:#7b83a0}.mini-pill{background:#eeeaff;color:#5a49e4;padding:6px 9px;border-radius:999px;font-weight:900;font-size:.73rem}.mock-question{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;margin-top:12px;padding:13px 14px;border-radius:14px;background:#f8fafc;border:1px solid #edf0f7;font-weight:900}.mock-question strong{font-size:1.08rem}.mock-check{display:grid;place-items:center;width:27px;height:27px;border-radius:999px;background:#e5fbf4;color:#119670}.mock-question.wrong{border-color:#ffdbe2;background:#fff8fa}.mock-fix{font-size:.74rem;border-radius:999px;background:#ffe8ed;color:#bd3d58;padding:5px 8px}.mock-progress-label{font-size:.78rem;color:#7a8299;margin:17px 1px 7px}.mock-progress-label strong{color:#39435f}.mock-progress{height:8px;border-radius:99px;background:#eceefa;overflow:hidden}.mock-progress span{display:block;width:78%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--blue))}.hero-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}.hero-stat-row div{background:#f7f8fd;border-radius:12px;padding:10px;text-align:center}.hero-stat-row small{display:block;color:#8a91a7;font-size:.64rem;font-weight:900;letter-spacing:.08em}.hero-stat-row strong{display:block;margin-top:3px;font-size:.88rem}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(224,228,242,.95);border-radius:var(--radius);box-shadow:var(--shadow-soft)}.controls-card{margin:22px 0}.card-inner{padding:25px}.section-heading{display:flex;justify-content:space-between;gap:24px;align-items:end;border-bottom:1px solid #edf0f7;padding-bottom:17px;margin-bottom:18px}.section-heading h2{font-family:"Baloo 2",Nunito,sans-serif;font-size:1.65rem;line-height:1.05;margin:4px 0 0}.section-heading p{margin:0;color:var(--muted);font-size:.93rem;max-width:410px;text-align:right}.row{display:flex}.settings-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field-label{display:flex;flex-direction:column;gap:7px}.label-text{font-size:.78rem;color:#6d758e;font-weight:900;letter-spacing:.02em}select,input[type="number"],.pw-input,textarea{width:100%;border:1px solid #dde2ef;background:#fbfcff;color:var(--ink);border-radius:12px;padding:11px 12px;min-height:44px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}select:hover,input:hover,textarea:hover{border-color:#cbd2e4}.action-row{justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:17px}.btn-group-secondary{display:flex;gap:9px;flex-wrap:wrap}.status-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}.stat-chip{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"icon label" "icon value";column-gap:9px;align-items:center;background:linear-gradient(180deg,#fafbff,#f5f7fd);border:1px solid #e8ebf4;border-radius:15px;padding:10px 12px}.chip-icon{grid-area:icon;font-size:1.13rem}.chip-label{grid-area:label;color:#848ba0;font-size:.67rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em}.chip-val{grid-area:value;font-size:1rem;font-weight:900}.tips{margin-top:17px;border:1px solid #e8ebf4;border-radius:16px;background:#fbfcff;overflow:hidden}.tips summary{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;font-weight:900;list-style:none}.tips summary::-webkit-details-marker{display:none}.settingsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px;border-top:1px solid #eceff7}.toggle-label{display:flex;align-items:flex-start;gap:9px;padding:10px;border-radius:12px;background:#fff;border:1px solid #eceef6;font-size:.88rem;font-weight:700}.toggle-label input{margin-top:3px;accent-color:var(--purple)}
+.worksheet-card{margin:22px 0;min-height:310px;position:relative}.worksheet-card:before{content:"Practice page";position:absolute;top:-10px;left:24px;background:linear-gradient(90deg,var(--purple),var(--blue));color:#fff;padding:5px 10px;border-radius:99px;font-size:.68rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;box-shadow:0 7px 15px rgba(96,78,227,.22)}.sheetHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.sheet-title{font-family:"Baloo 2",Nunito,sans-serif;font-size:1.75rem;margin:0}.badge-meta{font-size:.8rem;color:#707992;background:#f5f7fb;border:1px solid #e6eaf3;border-radius:999px;padding:7px 10px}.questions{display:grid;gap:12px}.questions>div{border-radius:14px}.questions input{border:1px solid #dfe4ef;border-radius:10px;padding:9px 10px}.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.legendItem{font-size:.78rem;font-weight:900;border-radius:999px;padding:6px 10px}.legendItem.ok{background:#e7fbf5;color:#158a6b}.legendItem.bad{background:#fff0f3;color:#b43c55}.feedback{margin-top:13px;border-radius:13px}.calendar{margin-bottom:14px}
+.content-shell{margin:34px 0;padding:clamp(22px,4vw,34px);background:#fff;border:1px solid #e6e9f3;border-radius:28px;box-shadow:var(--shadow-soft)}.content-heading{max-width:760px;margin-bottom:20px}.content-heading.compact{margin-bottom:14px}.content-heading h2,.more-tools-panel h2{font-family:"Baloo 2",Nunito,sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.05;margin:7px 0 8px}.content-heading p{color:var(--muted);line-height:1.68;margin:0}.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.feature-card{padding:18px;border-radius:18px;border:1px solid #e9ecf5;background:linear-gradient(180deg,#fff,#fafbff)}.feature-card h3{margin:8px 0 7px;font-size:1rem}.feature-card p{margin:0;color:#66708a;font-size:.9rem;line-height:1.6}.feature-icon{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:#f0edff;font-size:1.15rem}.privacy-banner{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;margin-top:17px;border-radius:16px;padding:15px;background:#f5fbf9;border:1px solid #d9f2ea}.privacy-banner p{margin:2px 0 0;color:#63766f;font-size:.88rem;line-height:1.5}.privacy-banner a{font-weight:900;color:#14886b;text-decoration:none;white-space:nowrap}.privacy-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#def8ef}.faq-grid{display:grid;gap:9px}.faq-row{border:1px solid #e7eaf3;border-radius:15px;background:#fbfcff;padding:0 16px}.faq-row summary{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:15px 0;cursor:pointer;font-weight:900;list-style:none}.faq-row summary::-webkit-details-marker{display:none}.faq-row summary span{font-size:1.2rem;color:var(--purple)}.faq-row[open] summary span{transform:rotate(45deg)}.faq-row p{margin:0;padding:0 30px 15px 0;color:#65708a;line-height:1.65;font-size:.92rem}.more-tools-panel{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:34px 0 18px;padding:30px;border-radius:28px;color:#fff;background:linear-gradient(135deg,#252c57,#3b347d 48%,#315b9b);box-shadow:0 20px 46px rgba(30,39,83,.18)}.more-tools-panel p{margin:7px 0 0;color:#d8dcf1;max-width:650px}.section-kicker.light{color:#c7c7ff}.more-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.more-actions a{white-space:nowrap;text-decoration:none;color:#fff;font-weight:900;padding:11px 14px;border:1px solid rgba(255,255,255,.23);border-radius:12px;background:rgba(255,255,255,.09)}.more-actions a:first-child{background:#fff;color:#30375f}.footer{text-align:center;color:#7a8299;font-size:.82rem;padding:14px 0}.footer a{color:#616b87;font-weight:800;text-decoration:none}
+.modalBackdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:rgba(20,25,55,.54);backdrop-filter:blur(8px)}.hidden{display:none!important}.modal{width:min(970px,96vw);max-height:92vh;overflow:auto;padding:23px;background:#fff}.modalHeader{display:flex;justify-content:space-between;align-items:center;gap:12px}.modal-title-group{display:flex;align-items:center;gap:9px}.modal-title-group h2{margin:0}.dashGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:18px}.dashCard{border:1px solid #e7eaf3;border-radius:17px;padding:16px;background:#fbfcff}.dash-section-title{margin-top:0}.backup-buttons,.import-actions,.pw-actions{display:flex;gap:9px;flex-wrap:wrap}.exportOut{margin-top:10px;min-height:110px}.password-modal{width:min(430px,94vw);text-align:center}.pw-icon{font-size:2rem}.pw-sub{color:var(--muted)}.pw-error{color:#bb3450;font-weight:800;margin-top:8px}
+@media(max-width:900px){.math-hero{grid-template-columns:1fr}.hero-visual{max-width:520px;transform:none}.settings-row{grid-template-columns:repeat(2,1fr)}.status-bar{grid-template-columns:repeat(3,1fr)}.settingsGrid{grid-template-columns:repeat(2,1fr)}.feature-grid{grid-template-columns:repeat(2,1fr)}.more-tools-panel{align-items:flex-start;flex-direction:column}.more-actions{justify-content:flex-start}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:left}}
+@media(max-width:620px){.wrap{width:min(100% - 20px,1160px);padding-top:10px}.header{align-items:flex-start}.header-brand>.btn-ghost{display:none!important}.sub{display:none}.topRight{gap:6px}.topRight .btn-ghost{padding:9px 10px;font-size:.78rem}.logo-icon{width:37px;height:37px}.brand-title{font-size:1.05rem}.math-hero{border-radius:22px;padding:24px 19px}.math-hero h1{font-size:2.35rem}.hero-actions{display:grid}.hero-primary,.hero-secondary{width:100%}.hero-trust{gap:7px 12px}.hero-visual{padding:15px}.card-inner{padding:18px}.settings-row,.settingsGrid,.feature-grid,.dashGrid{grid-template-columns:1fr}.action-row{align-items:stretch}.action-row>.btn-primary{width:100%}.btn-group-secondary{display:grid;grid-template-columns:repeat(2,1fr);width:100%}.status-bar{grid-template-columns:repeat(2,1fr)}.status-bar .stat-chip:last-child{grid-column:span 2}.sheetHeader{align-items:flex-start;flex-direction:column}.privacy-banner{grid-template-columns:auto 1fr}.privacy-banner a{grid-column:1/-1;margin-left:56px}.content-shell{border-radius:21px;padding:20px}.more-tools-panel{border-radius:21px;padding:22px}.more-actions{display:grid;width:100%}.more-actions a{text-align:center}.modal{padding:16px}}
+@media print{body{background:#fff}.bg-deco,.header,.math-hero,.controls-card,.content-shell,.more-tools-panel,.footer,.legend{display:none!important}.wrap{width:100%;padding:0}.worksheet-card{box-shadow:none;border:0;margin:0}.worksheet-card:before{display:none}.card-inner{padding:0}}
+</style></head>
 <body>
-  <!-- Decorative background shapes -->
-  <div class="bg-deco" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="dots-grid"></div>
-  </div>
-
-  <div class="wrap">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-brand">
-        <div class="brand-logo">
-          <span class="logo-icon">✦</span>
-          <div>
-            <h1>Math Practice</h1>
-            <p class="sub">Practice daily · Fix mistakes · Level up</p>
-          </div>
-        </div>
-      </div>
-      <div class="topRight">
-        <button id="printBtn" class="btn-ghost">🖨 Print</button>
-        <button id="dashboardBtn" class="btn-ghost">👩‍👧 Parent</button>
-      </div>
-    </header>
-
-    <!-- Controls card -->
-    <section class="card controls-card">
-      <div class="card-inner">
-
-        <div class="row settings-row" id="settingsRow">
-          <label class="field-label">
-            <span class="label-text">Mode</span>
-            <select id="modeSelect">
-              <option value="practice">Practice</option>
-              <option value="test">Test</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            <span class="label-text">Starting level</span>
-            <select id="gradeSelect">
-              <option value="1">Grade 1 (start)</option>
-              <option value="2">Grade 2</option>
-              <option value="3">Grade 3</option>
-              <option value="4">Grade 4</option>
-              <option value="5">Grade 5</option>
-              <option value="6">Grade 6</option>
-              <option value="7">Grade 7</option>
-              <option value="8">Grade 8</option>
-              <option value="current">Current level</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            <span class="label-text">Questions per page</span>
-            <select id="countSelect">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="40">40</option>
-              <option value="60">60</option>
-              <option value="80">80</option>
-            </select>
-          </label>
-
-          <label class="field-label">
-            <span class="label-text">Focus</span>
-            <select id="focusSelect">
-              <option value="adaptive">Adaptive</option>
-              <option value="mixed">Mixed</option>
-              <option value="word">Word Problems</option>
-              <option value="addsub">Add/Subtract</option>
-              <option value="muldiv">Multiply/Divide</option>
-              <option value="decimals">Decimals</option>
-              <option value="fractions">Fractions</option>
-              <option value="percents">Percents</option>
-              <option value="orderops">Order of Operations</option>
-            </select>
-          </label>
-        </div>
-
-        <!-- Action buttons -->
-        <div class="row action-row">
-          <button id="newBtn" class="btn-primary">▶ Start Page</button>
-          <div class="btn-group-secondary">
-            <button id="showSettingsBtn" class="btn-outline">Settings</button>
-            <button id="resetBtn" class="btn-outline">Reset</button>
-            <button id="pauseBtn" class="btn-outline">⏸ Pause</button>
-            <button id="showSolutionsBtn" class="btn-outline">Show Solutions</button>
-            <button id="checkBtn" class="btn-check">✓ Check Answers</button>
-          </div>
-        </div>
-
-        <!-- Status pills -->
-        <div class="status-bar">
-          <div class="stat-chip">
-            <span class="chip-icon">⏱</span>
-            <span class="chip-label">Time</span>
-            <span class="chip-val" id="timer">00:00</span>
-          </div>
-          <div class="stat-chip">
-            <span class="chip-icon">🎯</span>
-            <span class="chip-label">Score</span>
-            <span class="chip-val" id="score">—</span>
-          </div>
-          <div class="stat-chip">
-            <span class="chip-icon">🔥</span>
-            <span class="chip-label">Streak</span>
-            <span class="chip-val" id="streak">0</span>
-          </div>
-          <div class="stat-chip">
-            <span class="chip-icon">⏳</span>
-            <span class="chip-label">Session</span>
-            <span class="chip-val" id="sessionLeft">30:00</span>
-          </div>
-          <div class="stat-chip">
-            <span class="chip-icon">⏸</span>
-            <span class="chip-label">Pauses</span>
-            <span class="chip-val" id="pausesLeft">2</span>
-          </div>
-        </div>
-
-        <!-- Parent settings (collapsible) -->
-        <details class="tips parent-settings">
-          <summary>
-            <span>⚙️ Parent Settings</span>
-            <span class="caret">▾</span>
-          </summary>
-          <div class="settingsGrid">
-            <label class="toggle-label"><input type="checkbox" id="allowSolutions" checked /> <span>Allow "Show Solutions" (practice only)</span></label>
-            <label class="toggle-label"><input type="checkbox" id="requireAllAnswered" /> <span>Require all answered before checking</span></label>
-
-            <label class="field-label small-field">
-              <span class="label-text">Mastery threshold (%)</span>
-              <input type="number" id="masteryThreshold" min="50" max="100" value="90" />
-            </label>
-            <label class="field-label small-field">
-              <span class="label-text">"Completed" threshold (%)</span>
-              <input type="number" id="completionThreshold" min="50" max="100" value="90" />
-            </label>
-
-            <label class="field-label small-field">
-              <span class="label-text">Min pages per level</span>
-              <input type="number" id="minPagesPerLevel" min="1" max="200" value="20" />
-            </label>
-
-            <label class="field-label small-field">
-              <span class="label-text">Current level (parent)</span>
-              <select id="currentLevelSelect">
-                <option value="1">Grade 1</option>
-                <option value="2">Grade 2</option>
-                <option value="3">Grade 3</option>
-                <option value="4">Grade 4</option>
-                <option value="5">Grade 5</option>
-                <option value="6">Grade 6</option>
-                <option value="7">Grade 7</option>
-                <option value="8">Grade 8</option>
-              </select>
-            </label>
-
-            <label class="toggle-label"><input type="checkbox" id="autoAdvance" checked /> <span>Auto-advance when mastered</span></label>
-          </div>
-        </details>
-
-      </div>
-    </section>
-
-    <!-- Worksheet section -->
-    <section class="card worksheet-card">
-      <div class="card-inner">
-        <div class="sheetHeader">
-          <h2 id="sheetTitle" class="sheet-title">Worksheet</h2>
-          <div class="meta badge-meta" id="sheetMeta"></div>
-        </div>
-
-        <!-- Calendar -->
-        <div id="calendar" class="calendar"></div>
-
-        <!-- Questions grid -->
-        <div id="questions" class="questions"></div>
-
-        <!-- Legend -->
-        <div class="legend">
-          <span class="legendItem ok">✓ Correct</span>
-          <span class="legendItem bad">✗ Needs Fixing</span>
-        </div>
-
-        <!-- Feedback banner -->
-        <div id="feedback" class="feedback"></div>
-      </div>
-    </section>
-
-    <!-- Parent Dashboard Modal -->
-    <div id="modalBackdrop" class="modalBackdrop hidden" role="dialog" aria-modal="true">
-      <div class="modal card">
-        <div class="modalHeader">
-          <div class="modal-title-group">
-            <span class="modal-icon">👩‍👧</span>
-            <h2>Parent Dashboard</h2>
-          </div>
-          <button id="closeDashboardBtn" class="btn-ghost">✕ Close</button>
-        </div>
-
-        <div class="dashGrid">
-          <div class="dashCard">
-            <h3 class="dash-section-title">📊 Summary</h3>
-            <div id="dashSummary" class="dashBody"></div>
-          </div>
-          <div class="dashCard">
-            <h3 class="dash-section-title">🧠 Skill Mastery</h3>
-            <div id="dashSkills" class="dashBody"></div>
-          </div>
-          <div class="dashCard">
-            <h3 class="dash-section-title">📋 Recent Pages</h3>
-            <div id="dashRecent" class="dashBody"></div>
-          </div>
-          <div class="dashCard">
-            <h3 class="dash-section-title">💾 Backup & Reset</h3>
-            <div class="dashBody">
-              <div class="backup-buttons">
-                <button id="exportBtn" class="btn-outline">Export JSON</button>
-                <button id="downloadBackupBtn" class="btn-outline">⬇ Download</button>
-                <button id="resetDataBtn" class="btn-danger">⚠ Reset All</button>
-              </div>
-              <textarea id="exportOut" class="exportOut" readonly placeholder="Exported data will appear here…"></textarea>
-
-              <div class="importBlock">
-                <p class="label-text small-label">Import backup (paste JSON or choose file)</p>
-                <textarea id="importIn" class="exportOut" placeholder="Paste backup JSON here…"></textarea>
-                <div class="import-actions">
-                  <button id="importBackupBtn" class="btn-primary small-btn">Import</button>
-                  <label class="btn-outline file-label">
-                    <input id="importFile" type="file" accept="application/json" />
+<!-- Decorative background shapes -->
+<div aria-hidden="true" class="bg-deco">
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+<div class="dots-grid"></div>
+</div>
+<div class="wrap">
+<!-- Header -->
+<header class="header">
+<div class="header-brand">
+<div class="brand-logo">
+<span class="logo-icon">✦</span>
+<div>
+<div class="brand-title">Bell's Math Practice</div>
+<p class="sub">Practice daily · Fix mistakes · Level up</p>
+</div>
+</div>
+<a class="btn-ghost" href="https://bellstuff.net/" style="text-decoration:none; margin-left:12px;">← Bell's</a></div>
+<div class="topRight">
+<button class="btn-ghost" id="printBtn">🖨 Print</button>
+<button class="btn-ghost" id="dashboardBtn">👩‍👧 Parent</button>
+</div>
+</header><section aria-labelledby="page-title" class="math-hero" id="about-math-practice">
+<div class="hero-copy">
+<div class="hero-kicker"><span class="spark">✦</span> Free browser math practice for families</div>
+<h1 id="page-title">Free daily math practice that makes kids <span class="accent-word">fix mistakes</span></h1>
+<p class="hero-lede">Focused practice for grades 1–8 with timed sessions, printable pages, parent controls and a correction-first workflow that keeps wrong answers from disappearing behind a score.</p>
+<div class="hero-actions">
+<a class="hero-primary" href="#settingsRow">Start a practice page <span>→</span></a>
+<button class="hero-secondary" onclick="document.getElementById('dashboardBtn').click()" type="button">Open parent dashboard</button>
+</div>
+<div aria-label="Key features" class="hero-trust">
+<span>✓ No student account</span>
+<span>✓ Grades 1–8</span>
+<span>✓ Progress saved locally</span>
+</div>
+</div>
+<div aria-hidden="true" class="hero-visual">
+<div class="hero-visual-top">
+<span class="mini-label">TODAY'S PRACTICE</span>
+<span class="mini-pill">Adaptive</span>
+</div>
+<div class="mock-question"><span>7 × 8</span><strong>56</strong><span class="mock-check">✓</span></div>
+<div class="mock-question wrong"><span>84 ÷ 7</span><strong>14</strong><span class="mock-fix">Fix it</span></div>
+<div class="mock-progress-label"><span>Mastery progress</span><strong>78%</strong></div>
+<div class="mock-progress"><span></span></div>
+<div class="hero-stat-row">
+<div><small>STREAK</small><strong>🔥 4</strong></div>
+<div><small>TIME</small><strong>08:42</strong></div>
+<div><small>LEVEL</small><strong>Grade 4</strong></div>
+</div>
+</div>
+</section>
+<!-- Controls card -->
+<section class="card controls-card">
+<div class="card-inner"><div class="section-heading">
+<div><span class="section-kicker">Practice setup</span><h2>Build today's math page</h2></div>
+<p>Choose a mode, level, question count and focus. You can change these any time.</p>
+</div>
+<div class="row settings-row" id="settingsRow">
+<label class="field-label">
+<span class="label-text">Mode</span>
+<select id="modeSelect">
+<option value="practice">Practice</option>
+<option value="test">Test</option>
+</select>
+</label>
+<label class="field-label">
+<span class="label-text">Starting level</span>
+<select id="gradeSelect">
+<option value="1">Grade 1 (start)</option>
+<option value="2">Grade 2</option>
+<option value="3">Grade 3</option>
+<option value="4">Grade 4</option>
+<option value="5">Grade 5</option>
+<option value="6">Grade 6</option>
+<option value="7">Grade 7</option>
+<option value="8">Grade 8</option>
+<option value="current">Current level</option>
+</select>
+</label>
+<label class="field-label">
+<span class="label-text">Questions per page</span>
+<select id="countSelect">
+<option value="10">10</option>
+<option value="25">25</option>
+<option value="40">40</option>
+<option value="60">60</option>
+<option value="80">80</option>
+</select>
+</label>
+<label class="field-label">
+<span class="label-text">Focus</span>
+<select id="focusSelect">
+<option value="adaptive">Adaptive</option>
+<option value="mixed">Mixed</option>
+<option value="word">Word Problems</option>
+<option value="addsub">Add/Subtract</option>
+<option value="muldiv">Multiply/Divide</option>
+<option value="decimals">Decimals</option>
+<option value="fractions">Fractions</option>
+<option value="percents">Percents</option>
+<option value="orderops">Order of Operations</option>
+</select>
+</label>
+</div>
+<!-- Action buttons -->
+<div class="row action-row">
+<button class="btn-primary" id="newBtn">▶ Start Page</button>
+<div class="btn-group-secondary">
+<button class="btn-outline" id="showSettingsBtn">Settings</button>
+<button class="btn-outline" id="resetBtn">Reset</button>
+<button class="btn-outline" id="pauseBtn">⏸ Pause</button>
+<button class="btn-outline" id="showSolutionsBtn">Show Solutions</button>
+<button class="btn-check" id="checkBtn">✓ Check Answers</button>
+</div>
+</div>
+<!-- Status pills -->
+<div class="status-bar">
+<div class="stat-chip">
+<span class="chip-icon">⏱</span>
+<span class="chip-label">Time</span>
+<span class="chip-val" id="timer">00:00</span>
+</div>
+<div class="stat-chip">
+<span class="chip-icon">🎯</span>
+<span class="chip-label">Score</span>
+<span class="chip-val" id="score">—</span>
+</div>
+<div class="stat-chip">
+<span class="chip-icon">🔥</span>
+<span class="chip-label">Streak</span>
+<span class="chip-val" id="streak">0</span>
+</div>
+<div class="stat-chip">
+<span class="chip-icon">⏳</span>
+<span class="chip-label">Session</span>
+<span class="chip-val" id="sessionLeft">30:00</span>
+</div>
+<div class="stat-chip">
+<span class="chip-icon">⏸</span>
+<span class="chip-label">Pauses</span>
+<span class="chip-val" id="pausesLeft">2</span>
+</div>
+</div>
+<!-- Parent settings (collapsible) -->
+<details class="tips parent-settings">
+<summary>
+<span>⚙️ Parent Settings</span>
+<span class="caret">▾</span>
+</summary>
+<div class="settingsGrid">
+<label class="toggle-label"><input checked="" id="allowSolutions" type="checkbox"/> <span>Allow "Show Solutions" (practice only)</span></label>
+<label class="toggle-label"><input id="requireAllAnswered" type="checkbox"/> <span>Require all answered before checking</span></label>
+<label class="field-label small-field">
+<span class="label-text">Mastery threshold (%)</span>
+<input id="masteryThreshold" max="100" min="50" type="number" value="90"/>
+</label>
+<label class="field-label small-field">
+<span class="label-text">"Completed" threshold (%)</span>
+<input id="completionThreshold" max="100" min="50" type="number" value="90"/>
+</label>
+<label class="field-label small-field">
+<span class="label-text">Min pages per level</span>
+<input id="minPagesPerLevel" max="200" min="1" type="number" value="20"/>
+</label>
+<label class="field-label small-field">
+<span class="label-text">Current level (parent)</span>
+<select id="currentLevelSelect">
+<option value="1">Grade 1</option>
+<option value="2">Grade 2</option>
+<option value="3">Grade 3</option>
+<option value="4">Grade 4</option>
+<option value="5">Grade 5</option>
+<option value="6">Grade 6</option>
+<option value="7">Grade 7</option>
+<option value="8">Grade 8</option>
+</select>
+</label>
+<label class="toggle-label"><input checked="" id="autoAdvance" type="checkbox"/> <span>Auto-advance when mastered</span></label>
+</div>
+</details>
+</div>
+</section>
+<!-- Worksheet section -->
+<section class="card worksheet-card" id="practice-area">
+<div class="card-inner">
+<div class="sheetHeader">
+<h2 class="sheet-title" id="sheetTitle">Worksheet</h2>
+<div class="meta badge-meta" id="sheetMeta"></div>
+</div>
+<!-- Calendar -->
+<div class="calendar" id="calendar"></div>
+<!-- Questions grid -->
+<div class="questions" id="questions"></div>
+<!-- Legend -->
+<div class="legend">
+<span class="legendItem ok">✓ Correct</span>
+<span class="legendItem bad">✗ Needs Fixing</span>
+</div>
+<!-- Feedback banner -->
+<div class="feedback" id="feedback"></div>
+</div>
+</section>
+<!-- Parent Dashboard Modal -->
+<div aria-modal="true" class="modalBackdrop hidden" id="modalBackdrop" role="dialog">
+<div class="modal card">
+<div class="modalHeader">
+<div class="modal-title-group">
+<span class="modal-icon">👩‍👧</span>
+<h2>Parent Dashboard</h2>
+</div>
+<button class="btn-ghost" id="closeDashboardBtn">✕ Close</button>
+</div>
+<div class="dashGrid">
+<div class="dashCard">
+<h3 class="dash-section-title">📊 Summary</h3>
+<div class="dashBody" id="dashSummary"></div>
+</div>
+<div class="dashCard">
+<h3 class="dash-section-title">🧠 Skill Mastery</h3>
+<div class="dashBody" id="dashSkills"></div>
+</div>
+<div class="dashCard">
+<h3 class="dash-section-title">📋 Recent Pages</h3>
+<div class="dashBody" id="dashRecent"></div>
+</div>
+<div class="dashCard">
+<h3 class="dash-section-title">💾 Backup &amp; Reset</h3>
+<div class="dashBody">
+<div class="backup-buttons">
+<button class="btn-outline" id="exportBtn">Export JSON</button>
+<button class="btn-outline" id="downloadBackupBtn">⬇ Download</button>
+<button class="btn-danger" id="resetDataBtn">⚠ Reset All</button>
+</div>
+<textarea class="exportOut" id="exportOut" placeholder="Exported data will appear here…" readonly=""></textarea>
+<div class="importBlock">
+<p class="label-text small-label">Import backup (paste JSON or choose file)</p>
+<textarea class="exportOut" id="importIn" placeholder="Paste backup JSON here…"></textarea>
+<div class="import-actions">
+<button class="btn-primary small-btn" id="importBackupBtn">Import</button>
+<label class="btn-outline file-label">
+<input accept="application/json" id="importFile" type="file"/>
                     📂 Choose File
                   </label>
-                </div>
-                <div id="importStatus" class="import-status"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Password Modal -->
-    <div id="passwordModal" class="modalBackdrop hidden">
-      <div class="modal card password-modal">
-        <div class="pw-icon">🔐</div>
-        <h2>Parent Access</h2>
-        <p class="pw-sub">Enter the parent password to continue</p>
-        <input id="passwordInput" type="password" placeholder="Password" class="pw-input" />
-        <div class="pw-actions">
-          <button id="passwordSubmitBtn" class="btn-primary">Enter</button>
-          <button id="passwordCancelBtn" class="btn-outline">Cancel</button>
-        </div>
-        <div id="passwordError" class="pw-error"></div>
-      </div>
-    </div>
-
-    <footer class="footer">
-      <span class="footer-dot">●</span>
-      Offline single-child version · Progress saves in this browser only
-      <span class="footer-dot">●</span>
-    </footer>
-  </div>
-
-  <script src="app.js"></script>
+</div>
+<div class="import-status" id="importStatus"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Password Modal -->
+<div class="modalBackdrop hidden" id="passwordModal">
+<div class="modal card password-modal">
+<div class="pw-icon">🔐</div>
+<h2>Parent Access</h2>
+<p class="pw-sub">Enter the parent password to continue</p>
+<input class="pw-input" id="passwordInput" placeholder="Password" type="password"/>
+<div class="pw-actions">
+<button class="btn-primary" id="passwordSubmitBtn">Enter</button>
+<button class="btn-outline" id="passwordCancelBtn">Cancel</button>
+</div>
+<div class="pw-error" id="passwordError"></div>
+</div>
+</div>
+<section aria-labelledby="how-title" class="content-shell" id="how-it-works">
+<div class="content-heading">
+<span class="section-kicker">Why Bell's Math</span>
+<h2 id="how-title">A practice loop built around finishing the thinking</h2>
+<p>Use it for a 5–15 minute daily routine, weak-skill review, test practice or a printable supplement alongside school or homeschool work.</p>
+</div>
+<div class="feature-grid">
+<article class="feature-card"><div class="feature-icon">🎯</div><h3>Choose the right practice</h3><p>Start at grades 1–8 and focus on adaptive, mixed, word problems, add/subtract, multiply/divide, decimals, fractions, percents or order of operations.</p></article>
+<article class="feature-card"><div class="feature-icon">✍️</div><h3>Fix the wrong answers</h3><p>Incorrect answers are marked for correction instead of vanishing into a final score, giving learners a chance to finish the reasoning.</p></article>
+<article class="feature-card"><div class="feature-icon">📈</div><h3>Make progress visible</h3><p>The Parent Dashboard shows recent pages and skill mastery, with parent-controlled thresholds, progression and auto-advance settings.</p></article>
+<article class="feature-card"><div class="feature-icon">🖨️</div><h3>Use screen or paper</h3><p>Run interactive practice in the browser or print the current page when paper is a better fit for the learner or the situation.</p></article>
+</div>
+<div class="privacy-banner"><div class="privacy-icon">🔒</div><div><strong>Simple by design.</strong><p>This single-child version works without a student account and stores progress locally in the browser. Use the Parent Dashboard backup tools if you want to keep a copy.</p></div><a href="/privacy/">Privacy &amp; data →</a></div>
+</section><section aria-labelledby="faq-title" class="content-shell faq-shell" id="faq">
+<div class="content-heading compact">
+<span class="section-kicker">Questions parents ask</span>
+<h2 id="faq-title">Math Practice FAQ</h2>
+</div>
+<div class="faq-grid">
+<details class="faq-row" open=""><summary>Does Math Practice require an account?<span>+</span></summary><p>No. This single-child browser version does not require a student account. Progress is saved locally in this browser.</p></details>
+<details class="faq-row"><summary>Can I print the practice pages?<span>+</span></summary><p>Yes. Use the Print button to turn the current practice page into a paper-based worksheet.</p></details>
+<details class="faq-row"><summary>What happens when an answer is wrong?<span>+</span></summary><p>Incorrect answers are marked as needing correction so the learner can fix mistakes instead of only seeing a final score.</p></details>
+<details class="faq-row"><summary>Can a parent control progression?<span>+</span></summary><p>Yes. Parent settings include solution access, mastery and completion thresholds, level controls and automatic advancement.</p></details>
+<details class="faq-row"><summary>Is this a full math curriculum?<span>+</span></summary><p>No. Bell's Math Practice is designed for focused practice and reinforcement alongside school or homeschool learning.</p></details>
+</div>
+</section><section aria-labelledby="more-tools-title" class="more-tools-panel" id="more-tools">
+<div><span class="section-kicker light">More from Bell's</span><h2 id="more-tools-title">Useful little tools, built to stay simple.</h2><p>Math Practice is part of Bell's — practical browser tools for learning, family routines and everyday problems.</p></div>
+<div class="more-actions"><a href="https://bellstuff.net/">Explore Bell's</a><a href="https://chores.bellstuff.net/">Try Chore Quest</a></div>
+</section><footer class="footer">Offline single-child version · Progress saves in this browser only · <a href="https://bellstuff.net/">Bell's Home</a> · <a href="/privacy/">Privacy &amp; data</a></footer>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
