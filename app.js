@@ -616,8 +616,61 @@ function renderQuestions(){
 
     card.appendChild(left);
     card.appendChild(input);
+    if (page.mode === "practice" && Number(page.level) <= 2) {
+      const subtraction = /^(\d+)\s*[-−]\s*(\d+)\s*=/.exec(q.text);
+      if (subtraction) {
+        const start = Number(subtraction[1]);
+        const take = Number(subtraction[2]);
+        if (start <= 30 && take > 0 && take <= start) addCounterGame(card, q, start, take);
+      }
+    }
     questionsEl.appendChild(card);
   }
+}
+
+function addCounterGame(card, q, start, take){
+  card.classList.add("has-counter-game");
+  const toggle=document.createElement("button");
+  toggle.type="button";toggle.className="counter-toggle";toggle.textContent="● Use counters";
+  toggle.setAttribute("aria-expanded", "false");
+  const panel=document.createElement("div");panel.className="counter-game hidden";
+  const prompt=document.createElement("p");prompt.className="counter-prompt";
+  prompt.textContent=`Start with ${start} counters. Tap ${take} to take away. Try the ones first!`;
+  const groups=document.createElement("div");groups.className="counter-groups";
+  const status=document.createElement("p");status.className="counter-status";status.setAttribute("role","status");
+  const reset=document.createElement("button");reset.type="button";reset.className="counter-reset";reset.textContent="Start counters over";
+  const taken=new Set();
+  const counters=[];
+  for(let offset=0;offset<start;offset+=10){
+    const size=Math.min(10,start-offset);
+    const group=document.createElement("div");group.className="counter-group";
+    const label=document.createElement("span");label.textContent=size===10?"A group of 10":`${size} ones`;
+    const frame=document.createElement("div");frame.className="counter-frame";
+    for(let index=offset;index<offset+size;index++){
+      const dot=document.createElement("button");dot.type="button";dot.className="counter-dot";dot.textContent="●";
+      dot.setAttribute("aria-label",`Take away counter ${index+1}`);
+      dot.addEventListener("click",()=>{
+        if(taken.has(index)||taken.size>=take)return;
+        taken.add(index);dot.classList.add("taken");dot.disabled=true;
+        update();
+      });
+      counters.push(dot);frame.appendChild(dot);
+    }
+    group.append(label,frame);groups.appendChild(group);
+  }
+  function update(){
+    status.textContent=taken.size===take
+      ? `You took away ${take}. Count what is left: ${start-take}. Write that answer above.`
+      : `${taken.size} of ${take} taken away. ${start-taken.size} still here.`;
+    counters.forEach(dot=>{if(!dot.classList.contains("taken"))dot.disabled=taken.size>=take;});
+  }
+  reset.addEventListener("click",()=>{taken.clear();counters.forEach(dot=>{dot.classList.remove("taken");dot.disabled=false;});update();});
+  toggle.addEventListener("click",()=>{
+    const opening=panel.classList.toggle("hidden")===false;
+    toggle.setAttribute("aria-expanded",String(opening));
+    toggle.textContent=opening?"Hide counters":"● Use counters";
+  });
+  update();panel.append(prompt,groups,status,reset);card.append(toggle,panel);
 }
 
 // ---------- Worksheet generation ----------
@@ -709,7 +762,7 @@ function maybeAdvanceLevel(level, pct){
   const needed = clamp(Number(progress.minPagesPerLevel ?? 20), 1, 200);
   const done = completedPagesAtLevel(level);
   const mastery = clamp(Number(masteryThresholdEl.value||90),50,100);
-  if (done>=needed && pct>=mastery && level!=="6"){
+  if (done>=needed && pct>=mastery && level!=="8"){
     const nxt=nextLevel(level);
     progress.currentLevel=nxt;
     currentLevelSelectEl.value=nxt;
@@ -804,7 +857,9 @@ function checkAnswers(){
   if (advancedTo){
     feedbackEl.innerHTML = `🏁 Level up! Current level is now <strong>${labelLevel(advancedTo)}</strong>.`;
   } else if (correct===total){
-    feedbackEl.innerHTML = `✅ Perfect page! Click <strong>Start Page</strong> for the next one.`;
+    feedbackEl.innerHTML = page.initialAccuracy===100
+      ? `✅ Perfect page! Click <strong>Start Page</strong> for the next one.`
+      : `✅ All answers corrected! Click <strong>Start Page</strong> for the next one.`;
   } else {
     const list = wrongNums.slice(0,10).join(", ");
     const more = wrongNums.length>10 ? ` +${wrongNums.length-10} more` : "";
@@ -814,9 +869,13 @@ function checkAnswers(){
 
 function resetInputs(){
   if (!page) return;
-  page.id=cryptoId();page.recorded=false;page.rewardIssued=false;page.initialAccuracy=null;
-  page.child=Number(childSelect.value);page.childName=childSelect.selectedOptions[0].textContent;
-  childSelect.disabled=false;mathReward.classList.add("hidden");
+  // Clearing a recorded page must not add another history entry or issue the
+  // same reward a second time. A new Start Page creates a new attempt.
+  if (!page.recorded){
+    page.child=Number(childSelect.value);page.childName=childSelect.selectedOptions[0].textContent;
+  }
+  childSelect.disabled=page.recorded&&!page.rewardIssued;
+  mathReward.classList.toggle("hidden",!page.rewardIssued);
   for (const q of page.questions) q.userAnswer="";
   checkedOnce=false;
   scoreEl.textContent="—";
@@ -824,6 +883,7 @@ function resetInputs(){
   document.querySelectorAll(".q").forEach(el=>el.classList.remove("wrong","correct"));
   document.querySelectorAll(".solutionLine").forEach(el=>el.remove());
   document.querySelectorAll(".q input").forEach(i=>i.disabled=false);
+  renderQuestions();
   checkBtn.disabled=false; resetBtn.disabled=false; pauseBtn.disabled=false;
   startTimer();
 }
