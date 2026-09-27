@@ -505,6 +505,22 @@ button {
 .q.correct input { border-color: var(--green-bdr); background: #f0fdf4; color: var(--green); }
 .q.wrong input { border-color: var(--wrong-bdr); background: #fff5f5; color: var(--wrong); }
 
+/* On-page number pad keeps the floating iPad keyboard out of math answers. */
+.answer-pad,.answer-pad-restore { flex: 0 0 100%; min-width: 0; }
+.q input[readonly] { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.answer-pad { padding: 10px; border: 1px solid #d9e5f6; border-radius: 12px; background: #f8fbff; }
+.answer-pad-keys { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+.answer-pad button,.answer-pad-restore {
+  min-height: 46px; border: 1px solid #b9c9ef; border-radius: 9px;
+  background: white; color: #294279; font: inherit; font-size: 18px; font-weight: 800;
+  cursor: pointer; touch-action: manipulation;
+}
+.answer-pad-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+.answer-pad-actions button { flex: 1; font-size: 14px; }
+.answer-pad-actions button:first-child { background: #dce8ff; }
+.answer-pad-restore { font-size: 13px; padding: 7px 12px; }
+@media print { .answer-pad,.answer-pad-restore { display: none !important; } }
+
 /* Finger and stylus working area; the answer box remains separate. */
 .q.has-scratchpad { flex-wrap: wrap; }
 .scratchpad { flex: 0 0 100%; min-width: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
