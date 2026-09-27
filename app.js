@@ -91,6 +91,7 @@ let sessionExpired = false;
 let pausesLeft = 2;
 let pauseActive = false;
 let scratchObservers = [];
+const iosTouch = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
 
 
 function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
@@ -619,6 +620,7 @@ function renderQuestions(){
 
     card.appendChild(left);
     card.appendChild(input);
+    if (iosTouch) addAnswerPad(card,input,i+1);
     addScratchpad(card, q, i+1);
     if (page.mode === "practice" && Number(page.level) <= 2) {
       const subtraction = /^(\d+)\s*[-−]\s*(\d+)\s*=/.exec(q.text);
@@ -630,6 +632,40 @@ function renderQuestions(){
     }
     questionsEl.appendChild(card);
   }
+}
+
+function addAnswerPad(card,input,number){
+  input.readOnly=true;
+  input.setAttribute("aria-label",`Answer for question ${number}; opens on-page number pad`);
+  const pad=document.createElement("div");pad.className="answer-pad hidden";
+  pad.setAttribute("aria-label",`Number pad for question ${number}`);
+  const keys=document.createElement("div");keys.className="answer-pad-keys";
+  function enter(value){
+    if(value==="delete")input.value=input.value.slice(0,-1);
+    else if(value==="clear")input.value="";
+    else input.value+=value;
+    input.dispatchEvent(new Event("input",{bubbles:true}));
+  }
+  for(const value of ["1","2","3","4","5","6","7","8","9","−","0",".","/","delete","clear"]){
+    const key=document.createElement("button");key.type="button";
+    key.textContent=value==="delete"?"⌫":value==="clear"?"Clear":value;
+    key.setAttribute("aria-label",value==="delete"?"Delete last character":value==="clear"?"Clear answer":value==="−"?"Minus":value==="/"?"Fraction slash":value);
+    key.addEventListener("click",()=>enter(value==="−"?"-":value));keys.appendChild(key);
+  }
+  const actions=document.createElement("div");actions.className="answer-pad-actions";
+  const done=document.createElement("button");done.type="button";done.textContent="Done";
+  done.addEventListener("click",()=>{pad.classList.add("hidden");input.blur();});
+  const device=document.createElement("button");device.type="button";device.textContent="Use device keyboard";
+  const restore=document.createElement("button");restore.type="button";restore.className="answer-pad-restore hidden";
+  restore.textContent="Use on-page number pad";
+  device.addEventListener("click",()=>{pad.classList.add("hidden");restore.classList.remove("hidden");input.readOnly=false;input.focus();});
+  restore.addEventListener("click",()=>{input.blur();input.readOnly=true;restore.classList.add("hidden");pad.classList.remove("hidden");});
+  actions.append(done,device);pad.append(keys,actions);card.append(pad,restore);
+  input.addEventListener("click",()=>{
+    if(!input.readOnly)return;
+    document.querySelectorAll(".answer-pad").forEach(other=>other.classList.add("hidden"));
+    pad.classList.remove("hidden");
+  });
 }
 
 function addScratchpad(card, q, number){
