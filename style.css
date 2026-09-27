@@ -504,6 +504,9 @@ button {
 }
 .q.correct input { border-color: var(--green-bdr); background: #f0fdf4; color: var(--green); }
 .q.wrong input { border-color: var(--wrong-bdr); background: #fff5f5; color: var(--wrong); }
+.family-connect button { margin-left: 8px; padding: 7px 11px; border: 1px solid #b9c9ef; border-radius: 9px; background: white; color: #294279; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.english-next { margin-top: 12px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.english-next a { display: inline-block; border-radius: 9px; background: #3659b4; color: white; padding: 9px 13px; font-weight: 800; text-decoration: none; }
 
 /* On-page number pad keeps the floating iPad keyboard out of math answers. */
 .answer-pad,.answer-pad-restore { flex: 0 0 100%; min-width: 0; }

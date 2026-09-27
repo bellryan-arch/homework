@@ -822,6 +822,7 @@ function applyModeRules(){
 }
 
 function newWorksheet(){
+  syncFamilyProfiles();
   // re-enable in case locked
   checkBtn.disabled=false; resetBtn.disabled=false; pauseBtn.disabled=false;
 
@@ -1008,6 +1009,13 @@ function checkAnswers(){
     const more = wrongNums.length>10 ? ` +${wrongNums.length-10} more` : "";
     feedbackEl.innerHTML = `First try: <strong>${page.initialAccuracy}%</strong>. Review questions <strong>${list}${more}</strong>, use the tips, then press <strong>Check Answers</strong> again. Your first score stays in the progress record.`;
   }
+  if(correct===total){
+    const prompt=document.createElement("div");prompt.className="english-next";
+    const label=document.createElement("strong");label.textContent="Want to do an English page next?";
+    const link=document.createElement("a");link.href=`/english/?fromMath=1&grade=${encodeURIComponent(page.level)}#practice-setup`;
+    link.textContent="Choose an English page →";
+    prompt.append(label,link);feedbackEl.appendChild(prompt);
+  }
 }
 
 function resetInputs(){
@@ -1177,12 +1185,25 @@ function resetAllProgress(){
 function printWorksheet(){ window.print(); }
 
 // ---------- Init ----------
-function init(){
+function syncFamilyProfiles(){
   const familyNames=BellLearningRewards.familyNames();
-  if (familyNames.length){
-    [...childSelect.options].forEach((option,index)=>{option.textContent=familyNames[index]||`Child ${index+1}`;option.hidden=index>=familyNames.length;});
-    $("familyConnectText").textContent="Family names connected on this browser. Choose the right child below to earn points; Math progress stays here.";
+  const connected=familyNames.some(Boolean);
+  [...childSelect.options].forEach((option,index)=>{
+    option.textContent=connected?(familyNames[index]||`Child ${index+1}`):`Child ${index+1}`;
+    option.hidden=connected && (index>=familyNames.length || !familyNames[index]);
+  });
+  if(childSelect.selectedOptions[0]?.hidden){
+    childSelect.value=[...childSelect.options].find(option=>!option.hidden)?.value||"0";
   }
+  $("familyConnectText").textContent=connected
+    ? `Profiles connected: ${familyNames.filter(Boolean).join(", ")}. Choose the child below before checking answers. Math progress stays on this device.`
+    : "Profiles aren't connected here yet. On the Chore Quest family dashboard, tap Connect Math & English. Then return and tap Refresh profiles. Math progress stays on this device.";
+}
+
+function init(){
+  syncFamilyProfiles();
+  $("refreshFamilyProfiles").addEventListener("click",syncFamilyProfiles);
+  window.addEventListener("focus",syncFamilyProfiles);
   syncParentSettingsFromProgress();
   renderCalendar();
   applyModeRules();
