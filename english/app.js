@@ -317,4 +317,16 @@ if(familyNames.length){
   document.getElementById("familyConnectText").textContent="Family names connected on this browser. Choose the right child below to earn points; practice progress stays here.";
 }
 childSelect.value=String(familyNames.length?Math.min(progress.selectedChild||0,familyNames.length-1):(progress.selectedChild||0));
+const mathHandoffParams=new URLSearchParams(location.search);
+if(mathHandoffParams.get("fromMath")==="1"){
+  const mathGrade=Number(mathHandoffParams.get("grade"));
+  if(Number.isInteger(mathGrade) && mathGrade>=1 && mathGrade<=8){
+    const englishGrade=Math.max(3,Math.min(6,mathGrade));
+    gradeSelect.value=String(englishGrade);
+    const banner=$("mathHandoff");banner.classList.remove("hidden");
+    banner.textContent=mathGrade===englishGrade
+      ? `Math Grade ${mathGrade} is selected for English. Choose the grade, practice type and length, then tap Start Practice.`
+      : `English currently offers Grades 3–6, so Grade ${englishGrade} is selected after Math Grade ${mathGrade}. You can change the grade, practice type and length before starting.`;
+  }
+}
 spellingWords.value=progress.customWords||"";toggleSpellingSetup();updateHeaderStats();resetSession();
