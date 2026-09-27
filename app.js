@@ -762,8 +762,8 @@ function addCounterGame(card, q, start, take){
   }
   function update(){
     status.textContent=taken.size===take
-      ? `You took away ${take}. Count what is left: ${start-take}. Write that answer above.`
-      : `${taken.size} of ${take} taken away. ${start-taken.size} still here.`;
+      ? `You took away ${take}. Count the counters still showing, then write your answer above.`
+      : `${taken.size} of ${take} taken away. Keep counting as you go.`;
     counters.forEach(dot=>{if(!dot.classList.contains("taken"))dot.disabled=taken.size>=take;});
   }
   reset.addEventListener("click",()=>{taken.clear();counters.forEach(dot=>{dot.classList.remove("taken");dot.disabled=false;});update();});
@@ -778,7 +778,7 @@ function addCounterGame(card, q, start, take){
 // ---------- Worksheet generation ----------
 function applyModeRules(){
   const mode=modeSelect.value;
-  const allow = allowSolutionsEl.checked && mode==="practice";
+  const allow = allowSolutionsEl.checked && mode==="practice" && !!page?.recorded && page.correctionChecks>0;
   showSolutionsBtn.disabled = !allow;
   showSolutionsBtn.style.opacity = allow ? "1":"0.5";
   if (mode==="test") requireAllAnsweredEl.checked=true;
@@ -812,7 +812,7 @@ function newWorksheet(){
     }
     qs.push({ id: cryptoId(), ...q, userAnswer:"" });
   }
-  page = { id: cryptoId(), createdAt: Date.now(), level, mode, focus, child: Number(childSelect.value), childName: childSelect.selectedOptions[0].textContent, questions: qs, recorded:false, rewardIssued:false };
+  page = { id: cryptoId(), createdAt: Date.now(), level, mode, focus, child: Number(childSelect.value), childName: childSelect.selectedOptions[0].textContent, questions: qs, recorded:false, correctionChecks:0, rewardIssued:false };
   childSelect.disabled=false;
   mathReward.classList.add("hidden");
   checkedOnce=false;
@@ -925,18 +925,19 @@ function checkAnswers(){
       wrongNums.push(i+1);
       const sol=document.createElement("div");
       sol.className="solutionLine hint";
-      sol.textContent = `Correct: ${q.answer}. ${q.explain?("Tip: "+q.explain):""}`;
+      sol.textContent = `Try again. ${q.explain?("Tip: "+q.explain):"Use the work area to check your steps."}`;
       card.querySelector(".left").appendChild(sol);
     } else correct++;
   }
 
   const total=page.questions.length;
   const pct=Math.round((correct/total)*100);
-  scoreEl.textContent = `${correct}/${total} (${pct}%)`;
+  if (!page.recorded) scoreEl.textContent = `First try: ${correct}/${total} (${pct}%)`;
 
   let advancedTo=null;
   if (!page.recorded){
     page.initialAccuracy=pct;
+    page.initialCorrect=correct;
     progress.pages.push({ date: nowIsoDate(), pct, total, correct, ms: elapsed, mode: page.mode, level: page.level });
     if (progress.pages.length>60) progress.pages = progress.pages.slice(-60);
     markCompletedDateIfQualified(pct);
@@ -944,7 +945,11 @@ function checkAnswers(){
     advancedTo=maybeAdvanceLevel(page.level,pct);
     page.recorded=true;
     saveProgress();renderCalendar();renderDashboard();
+  } else {
+    page.correctionChecks++;
   }
+  showSolutionsBtn.disabled = !(allowSolutionsEl.checked && page.mode==="practice" && page.correctionChecks>0);
+  showSolutionsBtn.style.opacity = showSolutionsBtn.disabled ? "0.5" : "1";
   if (correct===total && !page.rewardIssued){
     const pass=BellLearningRewards.create({source:"bells-math",activity:page.mode,grade:page.level,child:page.child,itemCount:total,initialAccuracy:page.initialAccuracy,correctedAll:true});
     BellLearningRewards.publish(pass);
@@ -965,7 +970,7 @@ function checkAnswers(){
   } else {
     const list = wrongNums.slice(0,10).join(", ");
     const more = wrongNums.length>10 ? ` +${wrongNums.length-10} more` : "";
-    feedbackEl.innerHTML = `You missed: <strong>${list}${more}</strong>. Fix the highlighted ones and press <strong>Check Answers</strong> again.`;
+    feedbackEl.innerHTML = `First try: <strong>${page.initialAccuracy}%</strong>. Review questions <strong>${list}${more}</strong>, use the tips, then press <strong>Check Answers</strong> again. Your first score stays in the progress record.`;
   }
 }
 
@@ -980,7 +985,7 @@ function resetInputs(){
   mathReward.classList.toggle("hidden",!page.rewardIssued);
   for (const q of page.questions) q.userAnswer="";
   checkedOnce=false;
-  scoreEl.textContent="—";
+  scoreEl.textContent=page.recorded?`First try: ${page.initialCorrect}/${page.questions.length} (${page.initialAccuracy}%)`:"—";
   feedbackEl.textContent="";
   document.querySelectorAll(".q").forEach(el=>el.classList.remove("wrong","correct"));
   document.querySelectorAll(".solutionLine").forEach(el=>el.remove());
@@ -992,7 +997,7 @@ function resetInputs(){
 
 function showSolutions(){
   if (!page) return;
-  if (!(allowSolutionsEl.checked && page.mode==="practice")) return;
+  if (!(allowSolutionsEl.checked && page.mode==="practice" && page.recorded && page.correctionChecks>0)) return;
   for (const q of page.questions){
     const card=document.querySelector(`.q[data-id="${q.id}"]`);
     if (!card) continue;
