@@ -9,6 +9,11 @@ const modeSelect = $("modeSelect");
 const gradeSelect = $("gradeSelect");
 const countSelect = $("countSelect");
 const focusSelect = $("focusSelect");
+const childSelect = $("childSelect");
+const mathReward = $("mathReward");
+const mathRewardTitle = $("mathRewardTitle");
+const mathRewardText = $("mathRewardText");
+const mathRewardLink = $("mathRewardLink");
 
 const newBtn = $("newBtn");
 const showSettingsBtn = $("showSettingsBtn");
@@ -542,7 +547,7 @@ function togglePause(){
 // ---------- UI rendering ----------
 function setSettingsHidden(hidden){
   settingsHidden=hidden;
-  settingsRow.style.display = hidden ? "none" : "flex";
+  settingsRow.style.display = hidden ? "none" : "";
   const tips = document.querySelector(".tips");
   tips.style.display = hidden ? "none" : "block";
   showSettingsBtn.textContent = hidden ? "Show Settings" : "Hide Settings";
@@ -652,7 +657,9 @@ function newWorksheet(){
     }
     qs.push({ id: cryptoId(), ...q, userAnswer:"" });
   }
-  page = { id: cryptoId(), createdAt: Date.now(), level, mode, focus, questions: qs };
+  page = { id: cryptoId(), createdAt: Date.now(), level, mode, focus, child: Number(childSelect.value), childName: childSelect.selectedOptions[0].textContent, questions: qs, recorded:false, rewardIssued:false };
+  childSelect.disabled=false;
+  mathReward.classList.add("hidden");
   checkedOnce=false;
   scoreEl.textContent="—";
   feedbackEl.textContent="";
@@ -739,6 +746,7 @@ function checkAnswers(){
   }
 
   checkedOnce=true;
+  if (!page.recorded){page.child=Number(childSelect.value);page.childName=childSelect.selectedOptions[0].textContent;childSelect.disabled=true;}
   const elapsed = elapsedMs();
   stopTimer();
 
@@ -750,7 +758,7 @@ function checkAnswers(){
     const q=page.questions[i];
     const card=document.querySelector(`.q[data-id="${q.id}"]`);
     const ok = answersMatch(q.userAnswer, q.answer);
-    updateSkillStats(q.skill, ok, perQ);
+    if (!page.recorded) updateSkillStats(q.skill, ok, perQ);
 
     card.classList.toggle("correct", ok);
     card.classList.toggle("wrong", !ok);
@@ -771,15 +779,27 @@ function checkAnswers(){
   const pct=Math.round((correct/total)*100);
   scoreEl.textContent = `${correct}/${total} (${pct}%)`;
 
-  progress.pages.push({ date: nowIsoDate(), pct, total, correct, ms: elapsed, mode: page.mode, level: page.level });
-  if (progress.pages.length>60) progress.pages = progress.pages.slice(-60);
-  markCompletedDateIfQualified(pct);
-  maybeAdvanceDifficulty();
-  const advancedTo = maybeAdvanceLevel(page.level, pct);
-
-  saveProgress();
-  renderCalendar();
-  renderDashboard();
+  let advancedTo=null;
+  if (!page.recorded){
+    page.initialAccuracy=pct;
+    progress.pages.push({ date: nowIsoDate(), pct, total, correct, ms: elapsed, mode: page.mode, level: page.level });
+    if (progress.pages.length>60) progress.pages = progress.pages.slice(-60);
+    markCompletedDateIfQualified(pct);
+    maybeAdvanceDifficulty();
+    advancedTo=maybeAdvanceLevel(page.level,pct);
+    page.recorded=true;
+    saveProgress();renderCalendar();renderDashboard();
+  }
+  if (correct===total && !page.rewardIssued){
+    const pass=BellLearningRewards.create({source:"bells-math",activity:page.mode,grade:page.level,child:page.child,itemCount:total,initialAccuracy:page.initialAccuracy,correctedAll:true});
+    BellLearningRewards.publish(pass);
+    page.rewardIssued=true;
+    childSelect.disabled=false;
+    mathRewardTitle.textContent=`All answers corrected. ${pass.xp} Chore Quest points for ${page.childName}!`;
+    mathRewardText.textContent="Open Chore Quest on this browser within 48 hours to add the points. You can keep practising without it.";
+    mathRewardLink.href=BellLearningRewards.claimUrl(pass);
+    mathReward.classList.remove("hidden");
+  }
 
   if (advancedTo){
     feedbackEl.innerHTML = `🏁 Level up! Current level is now <strong>${labelLevel(advancedTo)}</strong>.`;
@@ -794,6 +814,9 @@ function checkAnswers(){
 
 function resetInputs(){
   if (!page) return;
+  page.id=cryptoId();page.recorded=false;page.rewardIssued=false;page.initialAccuracy=null;
+  page.child=Number(childSelect.value);page.childName=childSelect.selectedOptions[0].textContent;
+  childSelect.disabled=false;mathReward.classList.add("hidden");
   for (const q of page.questions) q.userAnswer="";
   checkedOnce=false;
   scoreEl.textContent="—";
@@ -952,6 +975,11 @@ function printWorksheet(){ window.print(); }
 
 // ---------- Init ----------
 function init(){
+  const familyNames=BellLearningRewards.familyNames();
+  if (familyNames.length){
+    [...childSelect.options].forEach((option,index)=>{option.textContent=familyNames[index]||`Child ${index+1}`;option.hidden=index>=familyNames.length;});
+    $("familyConnectText").textContent="Family names connected on this browser. Choose the right child below to earn points; Math progress stays here.";
+  }
   syncParentSettingsFromProgress();
   renderCalendar();
   applyModeRules();
@@ -1006,6 +1034,7 @@ function init(){
 
   // First worksheet
   newWorksheet();
+  setSettingsHidden(false);
 }
 
 init();

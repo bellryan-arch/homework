@@ -50,7 +50,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:900px){.math-hero{grid-template-columns:1fr}.hero-visual{max-width:520px;transform:none}.settings-row{grid-template-columns:repeat(2,1fr)}.status-bar{grid-template-columns:repeat(3,1fr)}.settingsGrid{grid-template-columns:repeat(2,1fr)}.feature-grid{grid-template-columns:repeat(2,1fr)}.more-tools-panel{align-items:flex-start;flex-direction:column}.more-actions{justify-content:flex-start}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:left}}
 @media(max-width:620px){.wrap{width:min(100% - 20px,1160px);padding-top:10px}.header{align-items:flex-start}.header-brand>.btn-ghost{display:none!important}.sub{display:none}.topRight{gap:6px}.topRight .btn-ghost{padding:9px 10px;font-size:.78rem}.logo-icon{width:37px;height:37px}.brand-title{font-size:1.05rem}.math-hero{border-radius:22px;padding:24px 19px}.math-hero h1{font-size:2.35rem}.hero-actions{display:grid}.hero-primary,.hero-secondary{width:100%}.hero-trust{gap:7px 12px}.hero-visual{padding:15px}.card-inner{padding:18px}.settings-row,.settingsGrid,.feature-grid,.dashGrid{grid-template-columns:1fr}.action-row{align-items:stretch}.action-row>.btn-primary{width:100%}.btn-group-secondary{display:grid;grid-template-columns:repeat(2,1fr);width:100%}.status-bar{grid-template-columns:repeat(2,1fr)}.status-bar .stat-chip:last-child{grid-column:span 2}.sheetHeader{align-items:flex-start;flex-direction:column}.privacy-banner{grid-template-columns:auto 1fr}.privacy-banner a{grid-column:1/-1;margin-left:56px}.content-shell{border-radius:21px;padding:20px}.more-tools-panel{border-radius:21px;padding:22px}.more-actions{display:grid;width:100%}.more-actions a{text-align:center}.modal{padding:16px}}
 @media print{body{background:#fff}.bg-deco,.header,.math-hero,.controls-card,.content-shell,.more-tools-panel,.footer,.legend{display:none!important}.wrap{width:100%;padding:0}.worksheet-card{box-shadow:none;border:0;margin:0}.worksheet-card:before{display:none}.card-inner{padding:0}}
-</style></head>
+</style><style>.family-connect{margin:15px 0;padding:14px 16px;border:1px solid #dce9f7;border-radius:15px;background:#f1f7ff;color:#334266;line-height:1.5}.family-connect a{color:#364fbd;font-weight:900;display:inline-block;margin-left:5px}.family-connect strong{color:#26366b}@media print{.family-connect{display:none!important}}</style></head>
 <body>
 <!-- Decorative background shapes -->
 <div aria-hidden="true" class="bg-deco">
@@ -112,6 +112,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div><span class="section-kicker">Practice setup</span><h2>Build today's math page</h2></div>
 <p>Choose a mode, level, question count and focus. You can change these any time.</p>
 </div>
+<div class="family-connect" id="familyConnect" role="note"><strong>Using Chore Quest too?</strong> <span id="familyConnectText">Set up your family in Chore Quest first, then connect the children's names there. Math works on its own if you just want a worksheet.</span> <a href="https://chores.bellstuff.net/">Open Chore Quest →</a></div>
 <div class="row settings-row" id="settingsRow">
 <label class="field-label">
 <span class="label-text">Mode</span>
@@ -159,6 +160,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </select>
 </label>
 </div>
+<label class="field-label" style="max-width:280px;margin-top:12px"><span class="label-text">Earn Chore Quest points for</span><select id="childSelect"><option value="0">Child 1</option><option value="1">Child 2</option><option value="2">Child 3</option><option value="3">Child 4</option></select></label>
 <!-- Action buttons -->
 <div class="row action-row">
 <button class="btn-primary" id="newBtn">▶ Start Page</button>
@@ -170,6 +172,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <button class="btn-check" id="checkBtn">✓ Check Answers</button>
 </div>
 </div>
+<div id="mathReward" class="family-connect hidden" role="status"><strong id="mathRewardTitle"></strong> <span id="mathRewardText"></span> <a id="mathRewardLink" href="https://chores.bellstuff.net/">Open Chore Quest →</a></div>
 <!-- Status pills -->
 <div class="status-bar">
 <div class="stat-chip">
@@ -350,6 +353,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="more-actions"><a href="/english/">Try English Practice</a><a href="https://bellstuff.net/">Explore Bell's</a><a href="https://chores.bellstuff.net/">Try Chore Quest</a></div>
 </section><footer class="footer">Offline single-child version · Progress saves in this browser only · <a href="https://bellstuff.net/">Bell's Home</a> · <a href="/privacy/">Privacy &amp; data</a></footer>
 </div>
-<script src="app.js"></script>
+<script src="english/learning-rewards.js"></script><script src="app.js"></script>
 </body>
 </html>
