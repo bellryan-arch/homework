@@ -88,12 +88,14 @@
       <section class="card setup-card" id="practice-setup">
         <div class="card-inner">
           <div class="section-heading"><div><span class="section-kicker">Practice setup</span><h2>Build today's English quest</h2></div><p>Pick one skill or mix them. Practice stays short, printable and easy to repeat.</p></div>
+          <div class="family-connect" id="familyConnect" role="note"><strong>Using Chore Quest too?</strong> <span id="familyConnectText">Set up your family in Chore Quest first, then connect the children's names there. English works on its own if you just want to practise.</span> <a href="https://chores.bellstuff.net/">Open Chore Quest →</a></div>
           <div class="settings-grid">
             <label class="field"><span>Grade</span><select id="gradeSelect"><option value="3">Grade 3</option><option value="4" selected>Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option></select></label>
             <label class="field"><span>Practice type</span><select id="modeSelect"><option value="mixed">Daily Mix</option><option value="editing">Fix the Sentence</option><option value="vocabulary">Word Power</option><option value="reading">Reading Sprint</option><option value="spelling">Spelling Studio</option></select></label>
             <label class="field"><span>Session length</span><select id="countSelect"><option value="5">Quick 5</option><option value="8" selected>Daily 8</option><option value="12">Focused 12</option></select></label>
-            <label class="field"><span>Adventurer</span><select id="childSelect"><option value="0">Child 1</option><option value="1">Child 2</option><option value="2">Child 3</option><option value="3">Child 4</option></select></label>
+            <label class="field"><span>Earn Chore Quest points for</span><select id="childSelect"><option value="0">Child 1</option><option value="1">Child 2</option><option value="2">Child 3</option><option value="3">Child 4</option></select></label>
           </div>
+          <p id="readingNote" class="hidden" style="margin:10px 0;color:#56617d">Reading Sprint uses one short passage and three different questions. Start another sprint for a new passage.</p>
           <div id="spellingSetup" class="spelling-setup hidden">
             <label class="field"><span>Weekly spelling words <small>(one per line or separated by commas)</small></span><textarea id="spellingWords" rows="4" placeholder="because, favourite, different, surprise, neighbour"></textarea></label>
             <p><strong>Privacy note:</strong> Custom words stay in this browser. Bell's uses your device's built-in voice when available.</p>
@@ -144,7 +146,7 @@
           <details open><summary>Does Bell's English require an account?<span>+</span></summary><p>No. It works in the browser and saves progress locally on this device.</p></details>
           <details><summary>Can I enter a school spelling list?<span>+</span></summary><p>Yes. Choose Spelling Studio, paste the words, and use Listen for a device-read spelling prompt.</p></details>
           <details><summary>What happens after a wrong answer?<span>+</span></summary><p>The item stays marked and editable. The learner must correct it before the learning quest is complete.</p></details>
-          <details><summary>How does Chore Quest connect?<span>+</span></summary><p>Finishing all corrections creates a Bell Pass with a modest XP reward. Chore Quest can import it for the selected child and rejects duplicate passes.</p></details>
+          <details><summary>How does Chore Quest connect?<span>+</span></summary><p>Set up your family in Chore Quest, then choose Connect learning on its Home screen to share child names in this browser. Select the right child before practice. Finishing all corrections creates a Bell Pass with points for that child; Chore Quest imports it once. Practice history stays in this browser.</p></details>
           <details><summary>Is this fully aligned to the Ontario curriculum?<span>+</span></summary><p>The practice supports common Grade 3–6 language foundations, but it is not a complete curriculum or a claim of full curriculum coverage.</p></details>
         </div>
       </section>

@@ -9,6 +9,16 @@
   const VERSION = 1;
   const MAX_PENDING = 6;
   const MAX_AGE_MS = 48 * 60 * 60 * 1000;
+  const FAMILY_COOKIE = "bells_family_names_v1";
+
+  function familyNames(){
+    try{
+      const row = document.cookie.split("; ").find(part => part.startsWith(FAMILY_COOKIE + "="));
+      if (!row) return [];
+      const value = JSON.parse(decodeURIComponent(row.slice(FAMILY_COOKIE.length + 1)));
+      return Array.isArray(value) ? value.slice(0,4).map(name => String(name).trim().slice(0,40)) : [];
+    }catch(_error){ return []; }
+  }
 
   function randomId(){
     if (root.crypto && root.crypto.getRandomValues){
@@ -93,5 +103,5 @@
     return `https://chores.bellstuff.net/?bellReward=${encodeURIComponent(toBase64Url(pass))}`;
   }
 
-  root.BellLearningRewards = {VERSION, create, publish, claimUrl, isValid, decode:fromBase64Url, encode:toBase64Url};
+  root.BellLearningRewards = {VERSION, create, publish, claimUrl, isValid, decode:fromBase64Url, encode:toBase64Url, familyNames};
 })(window);

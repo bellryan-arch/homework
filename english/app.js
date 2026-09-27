@@ -228,7 +228,7 @@ function dailyStreak(){let streak=0;const d=new Date();while(progress.completedD
 
 function makeEditing(grade,count){return sample(editingBank[grade],count).map((item,index)=>({id:uid(),skill:"editing",type:"text",prompt:item[0],answer:item[1],hint:item[2],label:`Rewrite the sentence correctly`,number:index+1,value:"",correct:false}));}
 function makeVocabulary(grade,count){return sample(vocabularyBank[grade],count).map((item,index)=>({id:uid(),skill:"vocabulary",type:"choice",prompt:item[0],options:shuffle(item[1]),answer:item[2],hint:item[3],number:index+1,value:"",correct:false}));}
-function makeReading(grade,count){const passage=sample(passages[grade],1)[0];const bank=passage.questions;const expanded=[];while(expanded.length<count)expanded.push(...shuffle(bank));return {passage,questions:expanded.slice(0,count).map((item,index)=>({id:uid(),skill:"reading",type:"choice",prompt:item[0],options:shuffle(item[1]),answer:item[2],hint:item[3],number:index+1,value:"",correct:false}))};}
+function makeReading(grade,count){const passage=sample(passages[grade],1)[0];const bank=sample(passage.questions,count);return {passage,questions:bank.map((item,index)=>({id:uid(),skill:"reading",type:"choice",prompt:item[0],options:shuffle(item[1]),answer:item[2],hint:item[3],number:index+1,value:"",correct:false}))};}
 function parseSpellingWords(grade){const custom=spellingWords.value.split(/[\n,]+/).map(w=>w.trim()).filter(Boolean).filter(w=>/^[a-zA-ZÀ-ÿ'’-]+$/.test(w));return custom.length?Array.from(new Set(custom.map(w=>w.toLocaleLowerCase("en-CA")))):spellingBank[grade];}
 function makeSpelling(grade,count){const words=sample(parseSpellingWords(grade),count);return words.map((word,index)=>({id:uid(),skill:"spelling",type:"spelling",prompt:`Word ${index+1}`,answer:word,hint:`Listen again, then type the whole word.`,number:index+1,value:"",correct:false}));}
 function makeMixed(grade,count){const readingCount=count>=8?2:1;const editCount=Math.ceil((count-readingCount)/2);const vocabCount=count-readingCount-editCount;const reading=makeReading(grade,readingCount);const questions=[...makeEditing(grade,editCount),...makeVocabulary(grade,vocabCount),...reading.questions];return {passage:reading.passage,questions:shuffle(questions).map((q,index)=>({...q,number:index+1}))};}
@@ -241,7 +241,8 @@ function startSession(forceMixed=false){
   else if(mode==="spelling")built={passage:null,questions:makeSpelling(grade,count)};
   else built=makeMixed(grade,count);
   if(!built.questions.length){showFeedback("Add at least one valid spelling word.","warning");return;}
-  session={id:uid(),grade,mode,questions:built.questions,passage:built.passage,initialAccuracy:null,firstChecked:false,completed:false,reward:null};
+  session={id:uid(),grade,mode,child:Number(childSelect.value),childName:childSelect.selectedOptions[0].textContent,questions:built.questions,passage:built.passage,initialAccuracy:null,firstChecked:false,completed:false,reward:null};
+  childSelect.disabled=true;
   startedAt=Date.now();clearInterval(timerHandle);timerHandle=setInterval(()=>timerEl.textContent=formatTime(elapsed()),1000);timerEl.textContent="00:00";scoreEl.textContent="—";xpPreview.textContent="Up to 35";
   emptyState.classList.add("hidden");rewardCard.classList.add("hidden");feedbackEl.className="feedback";sheetTitle.textContent=MODE_LABELS[mode];sheetMeta.textContent=`Grade ${grade} · ${built.questions.length} items · ${MODE_LABELS[mode]}`;
   renderPassage();renderQuestions();checkBtn.disabled=false;listenBtn.disabled=mode!=="spelling";document.getElementById("practice-area").scrollIntoView({behavior:"smooth",block:"start"});
@@ -286,14 +287,14 @@ function completeSession(){
   const skillCounts={};session.questions.forEach(q=>{skillCounts[q.skill]??={total:0,correct:0};skillCounts[q.skill].total++;skillCounts[q.skill].correct+=q.checked&&q.correct?1:0;});
   Object.entries(skillCounts).forEach(([skill,stats])=>{progress.skills[skill].sessions++;progress.skills[skill].total+=stats.total;progress.skills[skill].correct+=stats.correct;});
   progress.history.push({id:session.id,date:isoDate(),at:new Date().toISOString(),grade:session.grade,mode:session.mode,items:total,initialAccuracy:session.initialAccuracy,correctedAll:true,ms});if(progress.history.length>MAX_HISTORY)progress.history=progress.history.slice(-MAX_HISTORY);
-  progress.selectedChild=Number(childSelect.value);progress.customWords=spellingWords.value;saveProgress();updateHeaderStats();
-  const pass=BellLearningRewards.create({source:"bells-english",activity:session.mode,grade:session.grade,child:Number(childSelect.value),itemCount:total,initialAccuracy:session.initialAccuracy,correctedAll:true});BellLearningRewards.publish(pass);session.reward=pass;
-  xpPreview.textContent=`+${pass.xp} ready`;rewardTitle.textContent=`${"★".repeat(pass.stars)} You earned ${pass.xp} Chore Quest XP!`;rewardText.textContent=`Every answer is corrected. This Bell Pass is ready for Child ${pass.child+1} and expires in 48 hours.`;claimRewardBtn.href=BellLearningRewards.claimUrl(pass);rewardCard.classList.remove("hidden");showFeedback("✅ Learning quest complete. Every answer has been corrected.","success");rewardCard.scrollIntoView({behavior:"smooth",block:"nearest"});
+  progress.selectedChild=session.child;progress.customWords=spellingWords.value;saveProgress();updateHeaderStats();childSelect.disabled=false;
+  const pass=BellLearningRewards.create({source:"bells-english",activity:session.mode,grade:session.grade,child:session.child,itemCount:total,initialAccuracy:session.initialAccuracy,correctedAll:true});BellLearningRewards.publish(pass);session.reward=pass;
+  xpPreview.textContent=`+${pass.xp} ready`;rewardTitle.textContent=`${"★".repeat(pass.stars)} You earned ${pass.xp} Chore Quest points!`;rewardText.textContent=`Every answer is corrected. This Bell Pass is ready for ${session.childName} and expires in 48 hours.`;claimRewardBtn.href=BellLearningRewards.claimUrl(pass);rewardCard.classList.remove("hidden");showFeedback("✅ Learning quest complete. Every answer has been corrected.","success");rewardCard.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
 function updateHeaderStats(){streakEl.textContent=String(dailyStreak());}
-function resetSession(){session=null;clearInterval(timerHandle);questionsEl.innerHTML="";passageArea.innerHTML="";passageArea.classList.add("hidden");emptyState.classList.remove("hidden");rewardCard.classList.add("hidden");feedbackEl.className="feedback";sheetTitle.textContent="Ready for today's quest?";sheetMeta.textContent=`Grade ${gradeSelect.value} · ${MODE_LABELS[modeSelect.value]}`;timerEl.textContent="00:00";scoreEl.textContent="—";xpPreview.textContent="Up to 35";checkBtn.disabled=true;listenBtn.disabled=true;}
-function toggleSpellingSetup(){spellingSetup.classList.toggle("hidden",modeSelect.value!=="spelling");sheetMeta.textContent=`Grade ${gradeSelect.value} · ${MODE_LABELS[modeSelect.value]}`;}
+function resetSession(){session=null;childSelect.disabled=false;clearInterval(timerHandle);questionsEl.innerHTML="";passageArea.innerHTML="";passageArea.classList.add("hidden");emptyState.classList.remove("hidden");rewardCard.classList.add("hidden");feedbackEl.className="feedback";sheetTitle.textContent="Ready for today's quest?";sheetMeta.textContent=`Grade ${gradeSelect.value} · ${MODE_LABELS[modeSelect.value]}`;timerEl.textContent="00:00";scoreEl.textContent="—";xpPreview.textContent="Up to 35";checkBtn.disabled=true;listenBtn.disabled=true;}
+function toggleSpellingSetup(){spellingSetup.classList.toggle("hidden",modeSelect.value!=="spelling");countSelect.disabled=modeSelect.value==="reading";document.getElementById("readingNote").classList.toggle("hidden",modeSelect.value!=="reading");sheetMeta.textContent=`Grade ${gradeSelect.value} · ${MODE_LABELS[modeSelect.value]}`;}
 
 function renderDashboard(){
   const history=[...progress.history].reverse();const totalSessions=history.length;const avg=totalSessions?Math.round(history.reduce((sum,item)=>sum+item.initialAccuracy,0)/totalSessions):0;const totalMinutes=Math.round(history.reduce((sum,item)=>sum+item.ms,0)/60000);
@@ -310,4 +311,10 @@ modeSelect.addEventListener("change",toggleSpellingSetup);gradeSelect.addEventLi
 startBtn.addEventListener("click",()=>startSession(false));quickStartBtn.addEventListener("click",()=>{modeSelect.value="mixed";toggleSpellingSetup();startSession(true);});resetBtn.addEventListener("click",resetSession);checkBtn.addEventListener("click",checkAnswers);listenBtn.addEventListener("click",listenNext);printBtn.addEventListener("click",()=>window.print());dashboardBtn.addEventListener("click",openDashboard);closeDashboardBtn.addEventListener("click",closeDashboard);dashboardModal.addEventListener("click",event=>{if(event.target===dashboardModal)closeDashboard();});exportBtn.addEventListener("click",downloadBackup);importFile.addEventListener("change",event=>{if(event.target.files[0])importBackup(event.target.files[0]);});clearBtn.addEventListener("click",clearData);
 document.addEventListener("keydown",event=>{if(event.key==="Escape")closeDashboard();});
 
-childSelect.value=String(progress.selectedChild||0);spellingWords.value=progress.customWords||"";toggleSpellingSetup();updateHeaderStats();resetSession();
+const familyNames=BellLearningRewards.familyNames();
+if(familyNames.length){
+  [...childSelect.options].forEach((option,index)=>{option.textContent=familyNames[index]||`Child ${index+1}`;option.hidden=index>=familyNames.length;});
+  document.getElementById("familyConnectText").textContent="Family names connected on this browser. Choose the right child below to earn points; practice progress stays here.";
+}
+childSelect.value=String(familyNames.length?Math.min(progress.selectedChild||0,familyNames.length-1):(progress.selectedChild||0));
+spellingWords.value=progress.customWords||"";toggleSpellingSetup();updateHeaderStats();resetSession();
