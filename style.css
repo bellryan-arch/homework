@@ -507,7 +507,7 @@ button {
 
 /* Finger and stylus working area; the answer box remains separate. */
 .q.has-scratchpad { flex-wrap: wrap; }
-.scratchpad { flex: 0 0 100%; min-width: 0; }
+.scratchpad { flex: 0 0 100%; min-width: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 .scratchpad summary {
   width: fit-content; cursor: pointer; list-style: none;
   border: 1px solid #b9c9ef; border-radius: 10px;
@@ -543,6 +543,7 @@ button {
   display: block; box-sizing: border-box; width: 100%; min-height: 64px; margin-top: 10px;
   border: 1px solid #bdcdec; border-radius: 9px; padding: 9px;
   font: inherit; font-size: 14px; resize: vertical;
+  user-select: text; -webkit-user-select: text; -webkit-touch-callout: default;
 }
 @media print { .scratchpad { display: none !important; } }
 

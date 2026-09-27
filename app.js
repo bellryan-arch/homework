@@ -724,6 +724,7 @@ function addScratchpad(card, q, number){
   function endStroke(){active=null;}
   canvas.addEventListener("pointerup",endStroke);
   canvas.addEventListener("pointercancel",endStroke);
+  canvas.addEventListener("contextmenu",event=>event.preventDefault());
   details.addEventListener("toggle",resize);
   const observer=new ResizeObserver(resize);observer.observe(body);scratchObservers.push(observer);
   updateTools();
