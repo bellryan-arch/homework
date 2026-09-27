@@ -505,6 +505,47 @@ button {
 .q.correct input { border-color: var(--green-bdr); background: #f0fdf4; color: var(--green); }
 .q.wrong input { border-color: var(--wrong-bdr); background: #fff5f5; color: var(--wrong); }
 
+/* Finger and stylus working area; the answer box remains separate. */
+.q.has-scratchpad { flex-wrap: wrap; }
+.scratchpad { flex: 0 0 100%; min-width: 0; }
+.scratchpad summary {
+  width: fit-content; cursor: pointer; list-style: none;
+  border: 1px solid #b9c9ef; border-radius: 10px;
+  padding: 8px 12px; background: #eef4ff; color: #294279;
+  font-size: 13px; font-weight: 800;
+}
+.scratchpad summary::-webkit-details-marker { display: none; }
+.scratchpad summary:focus-visible { outline: 3px solid #3659b4; outline-offset: 2px; }
+.scratch-body { margin-top: 10px; border: 1px solid #d9e5f6; border-radius: 12px; padding: 12px; background: #f8fbff; }
+.scratch-problem {
+  position: sticky; top: 8px; z-index: 2; max-height: 110px; overflow: auto;
+  padding: 10px 12px; border-radius: 10px; border: 1px solid #c8d7f0;
+  background: #fff; color: #24335d; box-shadow: 0 2px 8px rgba(33,50,90,.12);
+  font-weight: 800; white-space: pre-line;
+}
+.scratch-instruction,.scratch-helper { margin: 10px 0; font-size: 12px; color: #566584; }
+.scratch-toolbar { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+.scratch-toolbar button {
+  min-height: 42px; padding: 7px 11px; border: 1px solid #b9c9ef;
+  border-radius: 9px; background: #fff; color: #294279;
+  font: inherit; font-size: 13px; font-weight: 800; cursor: pointer;
+}
+.scratch-toolbar button[aria-pressed="true"] { background: #dce8ff; border-color: #3659b4; }
+.scratch-toolbar button:disabled { opacity: .45; cursor: default; }
+.scratch-canvas {
+  display: block; box-sizing: border-box; width: 100%; height: 280px;
+  border: 2px solid #bdcdec; border-radius: 10px; touch-action: none; cursor: crosshair;
+  background-color: white;
+  background-image: linear-gradient(#e6edf8 1px, transparent 1px),linear-gradient(90deg,#e6edf8 1px,transparent 1px);
+  background-size: 28px 28px;
+}
+.scratch-notes {
+  display: block; box-sizing: border-box; width: 100%; min-height: 64px; margin-top: 10px;
+  border: 1px solid #bdcdec; border-radius: 9px; padding: 9px;
+  font: inherit; font-size: 14px; resize: vertical;
+}
+@media print { .scratchpad { display: none !important; } }
+
 /* ---- Legend ---- */
 .legend {
   display: flex;

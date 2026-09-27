@@ -90,6 +90,7 @@ let timer = { start: null, handle: null };
 let sessionExpired = false;
 let pausesLeft = 2;
 let pauseActive = false;
+let scratchObservers = [];
 
 
 function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
@@ -577,6 +578,8 @@ function renderCalendar(){
 }
 
 function renderQuestions(){
+  scratchObservers.forEach(observer=>observer.disconnect());
+  scratchObservers=[];
   questionsEl.innerHTML="";
   if (!page) return;
   for (let i=0;i<page.questions.length;i++){
@@ -616,6 +619,7 @@ function renderQuestions(){
 
     card.appendChild(left);
     card.appendChild(input);
+    addScratchpad(card, q, i+1);
     if (page.mode === "practice" && Number(page.level) <= 2) {
       const subtraction = /^(\d+)\s*[-−]\s*(\d+)\s*=/.exec(q.text);
       if (subtraction) {
@@ -626,6 +630,103 @@ function renderQuestions(){
     }
     questionsEl.appendChild(card);
   }
+}
+
+function addScratchpad(card, q, number){
+  // Scratch work belongs to the current worksheet question. It never changes
+  // the checked answer or the browser's saved progress record.
+  const work=q.scratch||(q.scratch={actions:[],notes:""});
+  card.classList.add("has-scratchpad");
+  const details=document.createElement("details");details.className="scratchpad";
+  const summary=document.createElement("summary");summary.textContent="✎ Work it out";
+  summary.setAttribute("aria-label",`Work out question ${number}`);
+  const body=document.createElement("div");body.className="scratch-body";
+  const problem=document.createElement("div");problem.className="scratch-problem";
+  problem.textContent=`Question ${number}: ${q.text}`;
+  const instruction=document.createElement("p");instruction.className="scratch-instruction";
+  instruction.textContent="Draw with a finger or stylus. Write the final answer in the box above.";
+  const toolbar=document.createElement("div");toolbar.className="scratch-toolbar";
+  const pen=document.createElement("button");pen.type="button";pen.textContent="✎ Pen";
+  const eraser=document.createElement("button");eraser.type="button";eraser.textContent="◻ Eraser";
+  const undo=document.createElement("button");undo.type="button";undo.textContent="↶ Undo";
+  const clear=document.createElement("button");clear.type="button";clear.textContent="Clear drawing";
+  let tool="pen";
+  function updateTools(){
+    pen.setAttribute("aria-pressed",String(tool==="pen"));
+    eraser.setAttribute("aria-pressed",String(tool==="eraser"));
+    undo.disabled=work.actions.length===0;
+    clear.disabled=work.actions.length===0;
+  }
+  pen.addEventListener("click",()=>{tool="pen";updateTools();});
+  eraser.addEventListener("click",()=>{tool="eraser";updateTools();});
+  undo.addEventListener("click",()=>{work.actions.pop();redraw();updateTools();});
+  clear.addEventListener("click",()=>{work.actions.push({clear:true});redraw();updateTools();});
+  toolbar.append(pen,eraser,undo,clear);
+  const canvas=document.createElement("canvas");canvas.className="scratch-canvas";
+  canvas.setAttribute("aria-label",`Drawing area for question ${number}`);
+  const notes=document.createElement("textarea");notes.className="scratch-notes";notes.rows=2;
+  notes.placeholder="Or type your working steps here";
+  notes.setAttribute("aria-label",`Working notes for question ${number}`);
+  notes.value=work.notes;
+  notes.addEventListener("input",()=>{work.notes=notes.value;});
+  const helper=document.createElement("p");helper.className="scratch-helper";
+  helper.textContent="Scratch work stays while this page is open. Starting a new page or reloading clears it.";
+  body.append(problem,instruction,toolbar,canvas,notes,helper);
+  details.append(summary,body);card.append(details);
+
+  function resize(){
+    if(!details.open)return;
+    const width=Math.round(canvas.getBoundingClientRect().width);
+    if(width<1)return;
+    const height=280;
+    const ratio=Math.min(window.devicePixelRatio||1,2);
+    if(canvas.width!==Math.round(width*ratio)||canvas.height!==Math.round(height*ratio)){
+      canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+    }
+    redraw();
+  }
+  function redraw(){
+    const ctx=canvas.getContext("2d");
+    const width=canvas.width,height=canvas.height;
+    ctx.clearRect(0,0,width,height);
+    const lastClear=work.actions.findLastIndex(action=>action.clear);
+    for(const action of work.actions.slice(lastClear+1)){
+      if(action.clear||!action.points.length)continue;
+      ctx.globalCompositeOperation=action.tool==="eraser"?"destination-out":"source-over";
+      ctx.strokeStyle="#24335d";ctx.fillStyle="#24335d";
+      ctx.lineWidth=(action.tool==="eraser"?22:3)*width/Math.max(1,canvas.clientWidth);
+      ctx.lineCap="round";ctx.lineJoin="round";
+      const points=action.points;
+      if(points.length===1){
+        ctx.beginPath();ctx.arc(points[0].x*width,points[0].y*height,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();
+      } else {
+        ctx.beginPath();ctx.moveTo(points[0].x*width,points[0].y*height);
+        for(const point of points.slice(1))ctx.lineTo(point.x*width,point.y*height);
+        ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation="source-over";
+  }
+  function point(event){
+    const rect=canvas.getBoundingClientRect();
+    return {x:clamp((event.clientX-rect.left)/rect.width,0,1),y:clamp((event.clientY-rect.top)/rect.height,0,1)};
+  }
+  let active=null;
+  canvas.addEventListener("pointerdown",event=>{
+    if(event.button!==0)return;
+    event.preventDefault();canvas.setPointerCapture(event.pointerId);
+    active={tool,points:[point(event)]};work.actions.push(active);redraw();updateTools();
+  });
+  canvas.addEventListener("pointermove",event=>{
+    if(!active)return;
+    event.preventDefault();active.points.push(point(event));redraw();
+  });
+  function endStroke(){active=null;}
+  canvas.addEventListener("pointerup",endStroke);
+  canvas.addEventListener("pointercancel",endStroke);
+  details.addEventListener("toggle",resize);
+  const observer=new ResizeObserver(resize);observer.observe(body);scratchObservers.push(observer);
+  updateTools();
 }
 
 function addCounterGame(card, q, start, take){
