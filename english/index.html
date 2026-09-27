@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Free English &amp; Language Practice for Grades 3–6 | Bell's</title>
+  <meta name="description" content="Free daily English practice for Grades 3–6 with sentence editing, vocabulary, short reading comprehension, custom spelling lists, printable pages and mistake correction.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#6657f5">
+  <link rel="canonical" href="https://homework.bellstuff.net/english/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;family=Baloo+2:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bell's">
+  <meta property="og:title" content="Free English &amp; Language Practice for Grades 3–6 | Bell's">
+  <meta property="og:description" content="Short, correction-first language practice with reading, writing, vocabulary and custom spelling.">
+  <meta property="og:url" content="https://homework.bellstuff.net/english/">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"SoftwareApplication",
+        "name":"Bell's English Practice",
+        "applicationCategory":"EducationalApplication",
+        "operatingSystem":"Web",
+        "url":"https://homework.bellstuff.net/english/",
+        "description":"Free browser-based English and language practice for Grades 3–6 with sentence editing, vocabulary, reading comprehension, custom spelling and mistake correction.",
+        "isAccessibleForFree":true,
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
+        "audience":{"@type":"EducationalAudience","educationalRole":"student"},
+        "educationalLevel":["Grade 3","Grade 4","Grade 5","Grade 6"],
+        "featureList":["Sentence editing","Vocabulary and word parts","Short reading comprehension","Custom spelling lists","Printable practice","Mistake correction","Chore Quest rewards","Browser-local progress"],
+        "publisher":{"@type":"Organization","name":"Bell's","url":"https://bellstuff.net/"}
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {"@type":"Question","name":"Does Bell's English require an account?","acceptedAnswer":{"@type":"Answer","text":"No. Progress is stored locally in the browser and no student account is required."}},
+          {"@type":"Question","name":"Can I use my child's weekly spelling words?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste a custom list and Bell's English will create a listen-and-type spelling practice."}},
+          {"@type":"Question","name":"Is Bell's English a full curriculum?","acceptedAnswer":{"@type":"Answer","text":"No. It is a focused daily practice supplement for reading, writing, vocabulary and spelling."}}
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="bg-deco" aria-hidden="true"><span class="blob blob-one"></span><span class="blob blob-two"></span><span class="blob blob-three"></span></div>
+  <div class="wrap">
+    <header class="header">
+      <div class="header-brand">
+        <div class="brand-logo"><span class="logo-icon">Aa</span><div><div class="brand-title">Bell's English Practice</div><p class="sub">Read closely · Fix writing · Grow words</p></div></div>
+        <a class="btn-ghost home-link" href="https://bellstuff.net/">← Bell's</a>
+      </div>
+      <div class="top-actions">
+        <button class="btn-ghost" id="printBtn" type="button">🖨 Print</button>
+        <button class="btn-ghost" id="dashboardBtn" type="button">👩‍👧 Parent</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="english-hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <div class="hero-kicker"><span>✦</span> Free daily language practice for families</div>
+          <h1 id="page-title">Build stronger English skills by <span class="accent-word">finishing the fix</span></h1>
+          <p class="hero-lede">Focused practice for Grades 3–6 with sentence editing, vocabulary, short reading, custom spelling lists and a correction-first loop that turns mistakes into learning.</p>
+          <div class="hero-actions">
+            <a class="hero-primary" href="#practice-setup">Start today's practice <span>→</span></a>
+            <button class="hero-secondary" id="quickStartBtn" type="button">Try a Daily Mix</button>
+          </div>
+          <div class="hero-trust" aria-label="Key features"><span>✓ No student account</span><span>✓ 5–15 minute sessions</span><span>✓ Earn Chore Quest XP</span></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="mock-top"><span>TODAY'S LANGUAGE QUEST</span><b>Daily Mix</b></div>
+          <div class="mock-card wrong"><span>we seen the fox yesterday</span><em>Fix it</em></div>
+          <div class="mock-card correct"><span>We saw the fox yesterday.</span><em>✓</em></div>
+          <div class="mock-reading"><span class="book-icon">📖</span><div><small>READING SPRINT</small><strong>2-minute story · 3 questions</strong></div></div>
+          <div class="mock-progress-label"><span>Quest progress</span><strong>4 / 6</strong></div>
+          <div class="mock-progress"><span></span></div>
+          <div class="mock-stats"><div><small>STREAK</small><strong>🔥 4</strong></div><div><small>WORDS</small><strong>28</strong></div><div><small>REWARD</small><strong>+25 XP</strong></div></div>
+        </div>
+      </section>
+
+      <section class="card setup-card" id="practice-setup">
+        <div class="card-inner">
+          <div class="section-heading"><div><span class="section-kicker">Practice setup</span><h2>Build today's English quest</h2></div><p>Pick one skill or mix them. Practice stays short, printable and easy to repeat.</p></div>
+          <div class="settings-grid">
+            <label class="field"><span>Grade</span><select id="gradeSelect"><option value="3">Grade 3</option><option value="4" selected>Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option></select></label>
+            <label class="field"><span>Practice type</span><select id="modeSelect"><option value="mixed">Daily Mix</option><option value="editing">Fix the Sentence</option><option value="vocabulary">Word Power</option><option value="reading">Reading Sprint</option><option value="spelling">Spelling Studio</option></select></label>
+            <label class="field"><span>Session length</span><select id="countSelect"><option value="5">Quick 5</option><option value="8" selected>Daily 8</option><option value="12">Focused 12</option></select></label>
+            <label class="field"><span>Adventurer</span><select id="childSelect"><option value="0">Child 1</option><option value="1">Child 2</option><option value="2">Child 3</option><option value="3">Child 4</option></select></label>
+          </div>
+          <div id="spellingSetup" class="spelling-setup hidden">
+            <label class="field"><span>Weekly spelling words <small>(one per line or separated by commas)</small></span><textarea id="spellingWords" rows="4" placeholder="because, favourite, different, surprise, neighbour"></textarea></label>
+            <p><strong>Privacy note:</strong> Custom words stay in this browser. Bell's uses your device's built-in voice when available.</p>
+          </div>
+          <div class="action-row">
+            <button class="btn-primary" id="startBtn" type="button">▶ Start Practice</button>
+            <div class="secondary-actions"><button class="btn-outline" id="resetBtn" type="button">Reset</button><button class="btn-outline" id="listenBtn" type="button" disabled>🔊 Listen</button><button class="btn-check" id="checkBtn" type="button" disabled>✓ Check Answers</button></div>
+          </div>
+          <div class="status-bar" aria-live="polite">
+            <div class="stat-chip"><span>⏱</span><small>TIME</small><strong id="timer">00:00</strong></div>
+            <div class="stat-chip"><span>🎯</span><small>SCORE</small><strong id="score">—</strong></div>
+            <div class="stat-chip"><span>🔥</span><small>STREAK</small><strong id="streak">0</strong></div>
+            <div class="stat-chip"><span>⭐</span><small>QUEST XP</small><strong id="xpPreview">Up to 35</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card practice-card" id="practice-area" aria-labelledby="sheetTitle">
+        <div class="card-inner">
+          <div class="sheet-header"><div><span class="section-kicker">Practice page</span><h2 id="sheetTitle">Ready for today's quest?</h2></div><span class="meta-pill" id="sheetMeta">Grade 4 · Daily Mix</span></div>
+          <div class="empty-state" id="emptyState"><div class="empty-icon">✎</div><h3>Short practice. Useful feedback.</h3><p>Start a page above. Wrong answers stay open until they are corrected.</p></div>
+          <div id="passageArea" class="passage-card hidden"></div>
+          <div id="questions" class="questions"></div>
+          <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+          <div class="legend"><span class="legend-good">✓ Correct</span><span class="legend-fix">✎ Needs fixing</span></div>
+          <div id="rewardCard" class="reward-card hidden">
+            <div class="reward-icon">⚔️</div>
+            <div><span class="section-kicker light">Learning quest complete</span><h3 id="rewardTitle">You earned Chore Quest XP!</h3><p id="rewardText"></p></div>
+            <a id="claimRewardBtn" class="reward-button" href="https://chores.bellstuff.net/">Claim in Chore Quest →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-shell">
+        <div class="content-heading"><span class="section-kicker">One focused daily loop</span><h2>Practice the skills that support every subject</h2><p>Bell's English is a supplement—not a replacement for classroom instruction. It targets repeatable foundational practice and gives children a clear path from a mistake to a corrected answer.</p></div>
+        <div class="feature-grid">
+          <article><span>✎</span><h3>Fix the Sentence</h3><p>Edit capitalization, punctuation, agreement, verb tense and commonly confused words.</p></article>
+          <article><span>🧩</span><h3>Word Power</h3><p>Build vocabulary through meaning, context, prefixes, suffixes and word relationships.</p></article>
+          <article><span>📖</span><h3>Reading Sprint</h3><p>Read an original short passage, then answer literal, vocabulary and inference questions.</p></article>
+          <article><span>🔊</span><h3>Spelling Studio</h3><p>Use a grade-level set or paste the exact weekly words from school and practise by listening.</p></article>
+        </div>
+        <div class="privacy-banner"><span>🔒</span><div><strong>Private by default.</strong><p>No student account. Practice history and custom lists stay in this browser. A small reward pass can be sent to Chore Quest when a learner completes every correction.</p></div><a href="privacy/">Privacy &amp; data →</a></div>
+      </section>
+
+      <section class="content-shell faq-shell">
+        <div class="content-heading"><span class="section-kicker">Questions parents ask</span><h2>English Practice FAQ</h2></div>
+        <div class="faq-grid">
+          <details open><summary>Does Bell's English require an account?<span>+</span></summary><p>No. It works in the browser and saves progress locally on this device.</p></details>
+          <details><summary>Can I enter a school spelling list?<span>+</span></summary><p>Yes. Choose Spelling Studio, paste the words, and use Listen for a device-read spelling prompt.</p></details>
+          <details><summary>What happens after a wrong answer?<span>+</span></summary><p>The item stays marked and editable. The learner must correct it before the learning quest is complete.</p></details>
+          <details><summary>How does Chore Quest connect?<span>+</span></summary><p>Finishing all corrections creates a Bell Pass with a modest XP reward. Chore Quest can import it for the selected child and rejects duplicate passes.</p></details>
+          <details><summary>Is this fully aligned to the Ontario curriculum?<span>+</span></summary><p>The practice supports common Grade 3–6 language foundations, but it is not a complete curriculum or a claim of full curriculum coverage.</p></details>
+        </div>
+      </section>
+
+      <section class="more-tools-panel">
+        <div><span class="section-kicker light">The Bell's learning loop</span><h2>Learn something. Fix it. Move the quest forward.</h2><p>Math and English can reward effort inside Chore Quest while every tool stays simple and browser-based.</p></div>
+        <div class="more-actions"><a href="https://homework.bellstuff.net/">Bell's Math</a><a href="https://chores.bellstuff.net/">Chore Quest</a></div>
+      </section>
+    </main>
+
+    <footer>Bell's English Practice · Free Grade 3–6 language practice · <a href="https://bellstuff.net/">Bell's Home</a> · <a href="privacy/">Privacy &amp; data</a></footer>
+  </div>
+
+  <div class="modal-backdrop hidden" id="dashboardModal" role="dialog" aria-modal="true" aria-labelledby="dashboardTitle">
+    <section class="modal card"><div class="modal-header"><div><span class="section-kicker">Parent view</span><h2 id="dashboardTitle">English progress</h2></div><button class="btn-ghost" id="closeDashboardBtn" type="button">✕ Close</button></div><div id="dashboardContent"></div><div class="modal-actions"><button class="btn-outline" id="exportBtn" type="button">Download backup</button><label class="btn-outline file-label">Import backup<input id="importFile" type="file" accept="application/json"></label><button class="btn-danger" id="clearBtn" type="button">Clear English data</button></div></section>
+  </div>
+
+  <script src="learning-rewards.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
